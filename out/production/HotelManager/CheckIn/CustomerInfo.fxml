@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="422.0" prefWidth="710.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CheckIn.ControllerCheckIn">
+   <children>
+      <MenuBar prefHeight="25.0" prefWidth="710.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Hệ Thống">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Chức năng">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Quản lý">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Báo Cáo">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+              </items>
+            </Menu>
+        </menus>
+      </MenuBar>
+      <TextField layoutX="136.0" layoutY="110.0" prefHeight="25.0" prefWidth="190.0" />
+      <Label layoutX="50.0" layoutY="112.0" text="Mã KH">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <DatePicker layoutX="136.0" layoutY="155.0" prefHeight="25.0" prefWidth="190.0" />
+      <TextField layoutX="466.0" layoutY="245.0" prefHeight="25.0" prefWidth="190.0" />
+      <TextField layoutX="136.0" layoutY="200.0" prefHeight="25.0" prefWidth="190.0" />
+      <RadioButton layoutX="466.0" layoutY="159.0" mnemonicParsing="false" text="Nam" />
+      <RadioButton layoutX="533.0" layoutY="159.0" mnemonicParsing="false" text="Nữ" />
+      <TextField layoutX="466.0" layoutY="110.0" prefHeight="25.0" prefWidth="190.0" />
+      <TextField layoutX="136.0" layoutY="245.0" prefHeight="25.0" prefWidth="190.0" />
+      <TextField layoutX="466.0" layoutY="200.0" prefHeight="25.0" prefWidth="190.0" />
+      <TextArea layoutX="136.0" layoutY="290.0" prefHeight="103.0" prefWidth="190.0" />
+      <Label layoutX="252.0" layoutY="50.0" text="Thông tin khách hàng" textAlignment="CENTER" textFill="#1a93b0">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="387.0" layoutY="112.0" text="Tên KH">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="387.0" layoutY="158.0" text="Giới tính">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="387.0" layoutY="203.0" text="Số ĐT">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="387.0" layoutY="248.0" text="Quốc Tịch">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="50.0" layoutY="158.0" text="Ngày sinh">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="50.0" layoutY="203.0" text="Số CMND">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="50.0" layoutY="248.0" text="Quê Quán">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="50.0" layoutY="290.0" text="Ghi chú">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Button layoutX="533.0" layoutY="353.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="Tiếp Tục" />
+      <Button layoutX="387.0" layoutY="353.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="Lưu" />
+   </children>
+</AnchorPane>
