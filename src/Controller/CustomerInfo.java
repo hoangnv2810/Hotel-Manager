@@ -52,7 +52,7 @@ public class CustomerInfo {
         //Lay Stage
         FXMLLoader loader = new FXMLLoader();
         Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-        loader.setLocation(getClass().getResource("CheckIn.fxml"));
+        loader.setLocation(getClass().getResource("../View/CheckIn.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -71,12 +71,11 @@ public class CustomerInfo {
         } else {
             gender = rbFemale.getText();
         }
-        System.out.println(gender);
 
     }
 
     private void insertCustomer(){
-        String query = "INSERT INTO HotelManager.dbo.Customer VALUES (N'" + textFieldId.getText() + "', N'" + textFieldName.getText() + "', N'"
+        String query = "INSERT INTO HotelManager.dbo.KhachHang VALUES (N'" + textFieldId.getText() + "', N'" + textFieldName.getText() + "', N'"
                 + datePickerDob.getValue().toString() + "', N'" + gender + "', N'" + textFieldIdCard.getText() + "', N'" + textFilePhoneNumber.getText() + "', N'" + textFieldHometown.getText() + "', N'" + textFieldNationality.getText() + "')";
         System.out.println(query);
         DBConnection databaseConnection = new DBConnection();
@@ -89,6 +88,7 @@ public class CustomerInfo {
             alert.setContentText("Đã thêm");
             alert.show();
         } catch (Exception e){
+            e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Mã khách hàng đã tồn tại");
             alert.show();

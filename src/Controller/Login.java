@@ -33,7 +33,7 @@ public class Login {
         if(usernameTextField.getText().isBlank() == false && passwordTextField.getText().isBlank() == false){
             DBConnection connect = new DBConnection();
             Connection connectDB = connect.getConnection();
-            String sql = "SELECT count(1) FROM dbo.Account where username = '" + usernameTextField.getText() + "' AND password = '" + passwordTextField.getText() + "'";
+            String sql = "SELECT count(1) FROM dbo.[User] where username = '" + usernameTextField.getText() + "' AND password = '" + passwordTextField.getText() + "'";
             try {
                 Statement statement = connectDB.createStatement();
                 ResultSet queryResult = statement.executeQuery(sql);
@@ -54,7 +54,7 @@ public class Login {
 
     private void goToHomePage(ActionEvent e) throws IOException {
         Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("../View/CheckIn.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../View/CustomerManager.fxml"));
         stage.setScene(new Scene(root));
         stage.centerOnScreen();
         stage.show();

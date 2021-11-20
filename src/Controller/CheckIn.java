@@ -11,9 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -26,10 +24,22 @@ import java.util.ResourceBundle;
 
 public class CheckIn implements Initializable {
     @FXML
-    private ComboBox<?> comBoxMDV;
+    private Button btDKKH;
 
     @FXML
-    private ComboBox<?> comBoxMP;
+    private Button btDatPhong;
+
+    @FXML
+    private DatePicker dpNgayDen;
+
+    @FXML
+    private DatePicker dpNgayDi;
+
+    @FXML
+    private ComboBox<String> comBoxMKH;
+
+    @FXML
+    private ComboBox<String> comBoxMP;
 
     @FXML
     private TableView<Phong> tvPhong;
@@ -57,6 +67,10 @@ public class CheckIn implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        ObservableList<String> listMKH = getMKH();
+        ObservableList<String> listMP = getMP();
+        comBoxMP.setItems(listMP);
+        comBoxMKH.setItems(listMKH);
         showRooms();
     }
 
@@ -64,7 +78,7 @@ public class CheckIn implements Initializable {
         ObservableList<Phong> phongList = FXCollections.observableArrayList();
         DBConnection dbc = new DBConnection();
         Connection cn = dbc.getConnection();
-        String query = "SELECT* FROM dbo.Phong Where trangThai = 'true'";
+        String query = "SELECT* FROM dbo.Phong";
         Statement st;
         ResultSet rs;
         try {
@@ -82,6 +96,44 @@ public class CheckIn implements Initializable {
         return phongList;
     }
 
+    public ObservableList<String> getMKH(){
+        ObservableList<String> listMKH = FXCollections.observableArrayList();
+        DBConnection dbc = new DBConnection();
+        Connection cn = dbc.getConnection();
+        String query = "SELECT maKH FROM dbo.KhachHang";
+        Statement st;
+        ResultSet rs;
+        try {
+            st = cn.createStatement();
+            rs = st.executeQuery(query);
+            while (rs.next()){
+                listMKH.add(rs.getString("maKH"));
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return listMKH;
+    }
+
+    public ObservableList<String> getMP(){
+        ObservableList<String> listMKH = FXCollections.observableArrayList();
+        DBConnection dbc = new DBConnection();
+        Connection cn = dbc.getConnection();
+        String query = "SELECT maPhong FROM dbo.Phong WHERE trangThai = 'true'";
+        Statement st;
+        ResultSet rs;
+        try {
+            st = cn.createStatement();
+            rs = st.executeQuery(query);
+            while (rs.next()){
+                listMKH.add(rs.getString("maPhong"));
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return listMKH;
+    }
+
     public void showRooms(){
         ObservableList<Phong> listPhong = getRoomList();
         tcMaPhong.setCellValueFactory(new PropertyValueFactory<>("maPhong"));
@@ -89,5 +141,43 @@ public class CheckIn implements Initializable {
         tcTinhTrang.setCellValueFactory(new PropertyValueFactory<>("trangThai"));
         tcGia.setCellValueFactory(new PropertyValueFactory<>("gia"));
         tvPhong.setItems(listPhong);
+    }
+
+    @FXML
+    void handleInsertDP(ActionEvent event) {
+        String query  = "INSERT INTO HotelManager.dbo.ThuePhong VALUES (N'"
+                + comBoxMKH.getSelectionModel().getSelectedItem()
+                + "', N'" + comBoxMP.getSelectionModel().getSelectedItem()
+                + "', N'" + dpNgayDen.getValue().toString() + "', N'" + dpNgayDi.getValue().toString() + "')";
+        DBConnection dbc = new DBConnection();
+        Connection cn = dbc.getConnection();
+        Statement st;
+        try {
+            st = cn.createStatement();
+            st.executeUpdate(query);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setContentText("Đã thêm");
+            alert.show();
+            updateTTPhong();
+        } catch (Exception e){
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Vui lòng thử lại");
+            alert.show();
+        }
+    }
+
+    private void updateTTPhong(){
+        String query = "UPDATE Phong SET trangThai = '" + false + "' WHERE maPhong = '" + comBoxMP.getSelectionModel().getSelectedItem() + "'";
+        DBConnection dbc = new DBConnection();
+        Connection cn = dbc.getConnection();
+        Statement st;
+        try {
+            st = cn.createStatement();
+            st.executeUpdate(query);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        showRooms();
     }
 }

@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="448.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Manage.ControllerManage">
+<AnchorPane prefHeight="448.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ManageCustomer">
    <children>
       <TextField layoutX="101.0" layoutY="70.0" prefHeight="25.0" prefWidth="170.0" />
       <TextField layoutX="101.0" layoutY="260.0" prefHeight="25.0" prefWidth="170.0" />
