@@ -94,9 +94,10 @@ public class CheckIn implements Initializable {
 
     @FXML
     void gotoInforCustomer(ActionEvent event) throws IOException {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("../View/CustomerInfo.fxml"));
-        stage.setScene(new Scene(root));
+//        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//        Parent root = FXMLLoader.load(getClass().getResource("../View/CustomerInfo.fxml"));
+//        stage.setScene(new Scene(root));
+        System.out.println(event.getSource());
     }
 
     public ObservableList<Phong> getRoomList(){
@@ -209,10 +210,10 @@ public class CheckIn implements Initializable {
     }
 
     public void goToCheckOut(ActionEvent event) throws IOException {
-//        Stage stage = (Stage) ((MenuItem) event.getSource()).;
+//        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 //        Parent root = FXMLLoader.load(getClass().getResource("CheckOut.fxml"));
 //        stage.setScene(new Scene(root));
-        System.out.println("OK");
+        System.out.println(event.getSource());
     }
 
     public void showThuePhong(){
