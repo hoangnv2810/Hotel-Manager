@@ -10,6 +10,9 @@ public class ThuePhong {
     private Date ngayDen;
     private Date ngayDi;
 
+    public ThuePhong() {
+    }
+
     public ThuePhong(String maThue, String maKH, String maPhong, Date ngayDen, Date ngayDi) throws ParseException {
         this.maThue = maThue;
         this.maKH = maKH;

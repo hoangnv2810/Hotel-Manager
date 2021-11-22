@@ -52,9 +52,10 @@ public class CustomerInfo {
         //Lay Stage
         FXMLLoader loader = new FXMLLoader();
         Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-        loader.setLocation(getClass().getResource("../View/CheckIn.fxml"));
+        loader.setLocation(getClass().getResource("../View/MenuBarBorderPane.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
+        stage.setHeight(575);
         stage.setScene(scene);
     }
 

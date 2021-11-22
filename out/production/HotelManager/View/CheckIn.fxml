@@ -4,87 +4,62 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="533.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CheckIn">
+<AnchorPane prefHeight="514.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CheckIn">
    <children>
-      <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="688.0">
-        <menus>
-          <Menu mnemonicParsing="false" text="Chức năng">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Đặt Phòng" />
-                  <MenuItem mnemonicParsing="false" onAction="#goToCheckOut" text="Thanh Toán" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Quản lý">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Quản lý phòng" />
-                  <MenuItem mnemonicParsing="false" text="Quản lý khách hàng" />
-                  <MenuItem mnemonicParsing="false" text="Quản lý nhân viên" />
-            </items>
-          </Menu>
-            <Menu mnemonicParsing="false" text="Tài Khoản">
-              <items>
-                <MenuItem mnemonicParsing="false" text="About" />
-              </items>
-            </Menu>
-        </menus>
-      </MenuBar>
-      <Label layoutX="14.0" layoutY="63.0" text="Mã KH">
+      <Label layoutX="14.0" layoutY="39.0" text="Mã KH">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="104.0" text="Mã Phòng">
+      <Label layoutX="14.0" layoutY="80.0" text="Mã Phòng">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="144.0" text="Ngày đến">
+      <Label layoutX="14.0" layoutY="120.0" text="Ngày đến">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="184.0" text="Ngày đi">
+      <Label layoutX="14.0" layoutY="160.0" text="Ngày đi">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="427.0" layoutY="32.0" text="Danh Sách Phòng">
+      <Label layoutX="427.0" layoutY="8.0" text="Danh Sách Phòng">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <ComboBox fx:id="comBoxMKH" editable="true" layoutX="100.0" layoutY="61.0" prefHeight="25.0" prefWidth="170.0" visibleRowCount="5" />
-      <ComboBox fx:id="comBoxMP" editable="true" layoutX="100.0" layoutY="102.0" prefHeight="25.0" prefWidth="170.0" visibleRowCount="5" />
-      <DatePicker fx:id="dpNgayDen" layoutX="100.0" layoutY="142.0" prefHeight="25.0" prefWidth="170.0" />
-      <DatePicker fx:id="dpNgayDi" layoutX="100.0" layoutY="182.0" prefHeight="25.0" prefWidth="170.0" />
-      <TableView fx:id="tvPhong" layoutX="310.0" layoutY="61.0" prefHeight="259.0" prefWidth="367.0">
+      <ComboBox fx:id="comBoxMKH" editable="true" layoutX="100.0" layoutY="37.0" prefHeight="25.0" prefWidth="170.0" visibleRowCount="5" />
+      <ComboBox fx:id="comBoxMP" editable="true" layoutX="100.0" layoutY="78.0" prefHeight="25.0" prefWidth="170.0" visibleRowCount="5" />
+      <DatePicker fx:id="dpNgayDen" layoutX="100.0" layoutY="118.0" prefHeight="25.0" prefWidth="170.0" />
+      <DatePicker fx:id="dpNgayDi" layoutX="100.0" layoutY="158.0" prefHeight="25.0" prefWidth="170.0" />
+      <TableView fx:id="tvPhong" layoutX="310.0" layoutY="37.0" prefHeight="259.0" prefWidth="384.0">
          <columns>
             <TableColumn fx:id="tcMaPhong" prefWidth="84.0" style="-fx-alignment: CENTER;" text="Mã Phòng" />
             <TableColumn fx:id="tcLoaiPhong" prefWidth="101.0" style="-fx-alignment: CENTER;" text="Loại Phòng" />
-            <TableColumn fx:id="tcTinhTrang" prefWidth="95.0" style="-fx-alignment: CENTER;" text="Tình Trạng" />
-            <TableColumn fx:id="tcGia" prefWidth="86.0" style="-fx-alignment: CENTER;" text="Giá" />
+            <TableColumn fx:id="tcTinhTrang" prefWidth="108.0" style="-fx-alignment: CENTER;" text="Tình Trạng" />
+            <TableColumn fx:id="tcGia" prefWidth="90.0" style="-fx-alignment: CENTER;" text="Giá" />
          </columns>
       </TableView>
-      <Button fx:id="btDatPhong" layoutX="14.0" layoutY="229.0" mnemonicParsing="false" onAction="#handleInsertDP" prefHeight="40.0" prefWidth="125.0" text="Đặt Phòng" />
-      <Button fx:id="btDKKH" layoutX="145.0" layoutY="229.0" mnemonicParsing="false" onAction="#gotoInforCustomer" prefHeight="40.0" prefWidth="125.0" text="Đăng ký khách hàng" />
-      <TableView fx:id="tvThuePhong" layoutX="14.0" layoutY="346.0" onMouseClicked="#handleMouseAction" prefHeight="173.0" prefWidth="661.0">
+      <Button fx:id="btDatPhong" layoutX="14.0" layoutY="205.0" mnemonicParsing="false" onAction="#handleInsertDP" prefHeight="40.0" prefWidth="125.0" text="Đặt Phòng" />
+      <Button fx:id="btDKKH" layoutX="145.0" layoutY="205.0" mnemonicParsing="false" onAction="#gotoInforCustomer" prefHeight="40.0" prefWidth="125.0" text="Đăng ký khách hàng" />
+      <TableView fx:id="tvThuePhong" layoutX="14.0" layoutY="322.0" onMouseClicked="#handleMouseAction" prefHeight="173.0" prefWidth="679.0">
         <columns>
           <TableColumn fx:id="tcMT" prefWidth="104.0" style="-fx-alignment: CENTER;" text="Mã Thuê" />
-          <TableColumn fx:id="tcMKH" prefWidth="144.0" style="-fx-alignment: CENTER;" text="Mã Khách Hàng" />
-            <TableColumn fx:id="tcMP" prefWidth="118.0" style="-fx-alignment: CENTER;" text="Mã Phòng" />
-            <TableColumn fx:id="tcNgayDen" minWidth="0.0" prefWidth="138.0" style="-fx-alignment: CENTER;" text="Ngày Đến " />
-            <TableColumn fx:id="tcNgayDi" minWidth="0.0" prefWidth="156.0" style="-fx-alignment: CENTER;" text="Ngày Đi" />
+          <TableColumn fx:id="tcMKH" prefWidth="152.0" style="-fx-alignment: CENTER;" text="Mã Khách Hàng" />
+            <TableColumn fx:id="tcMP" prefWidth="130.0" style="-fx-alignment: CENTER;" text="Mã Phòng" />
+            <TableColumn fx:id="tcNgayDen" minWidth="0.0" prefWidth="153.0" style="-fx-alignment: CENTER;" text="Ngày Đến " />
+            <TableColumn fx:id="tcNgayDi" minWidth="0.0" prefWidth="138.0" style="-fx-alignment: CENTER;" text="Ngày Đi" />
         </columns>
       </TableView>
-      <Button fx:id="btHuyPhong" layoutX="14.0" layoutY="278.0" mnemonicParsing="false" onAction="#handleHuyPhong" prefHeight="40.0" prefWidth="125.0" text="Hủy Phòng" />
-      <Button fx:id="btSua" layoutX="145.0" layoutY="278.0" mnemonicParsing="false" onAction="#handleButtonSua" prefHeight="40.0" prefWidth="125.0" text="Cập Nhật" />
+      <Button fx:id="btHuyPhong" layoutX="14.0" layoutY="254.0" mnemonicParsing="false" onAction="#handleHuyPhong" prefHeight="40.0" prefWidth="125.0" text="Hủy Phòng" />
+      <Button fx:id="btSua" layoutX="145.0" layoutY="254.0" mnemonicParsing="false" onAction="#handleButtonSua" prefHeight="40.0" prefWidth="125.0" text="Cập Nhật" />
    </children>
 </AnchorPane>

@@ -14,6 +14,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -27,6 +29,9 @@ import java.util.ResourceBundle;
 
 public class CheckIn implements Initializable {
     @FXML
+    private AnchorPane anchorPane;
+
+    @FXML
     private Button btDatPhong;
 
     @FXML
@@ -34,6 +39,9 @@ public class CheckIn implements Initializable {
 
     @FXML
     private Button btSua;
+
+    @FXML
+    private MenuItem menuItemThanhToan;
 
     @FXML
     private DatePicker dpNgayDen;
@@ -91,14 +99,17 @@ public class CheckIn implements Initializable {
         showRooms();
         showThuePhong();
     }
+    private Stage stage;
 
     @FXML
     void gotoInforCustomer(ActionEvent event) throws IOException {
-//        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//        Parent root = FXMLLoader.load(getClass().getResource("../View/CustomerInfo.fxml"));
-//        stage.setScene(new Scene(root));
-        System.out.println(event.getSource());
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("../View/CustomerInfo.fxml"));
+        stage.centerOnScreen();
+        stage.setHeight(325);
+        stage.setScene(new Scene(root));
     }
+
 
     public ObservableList<Phong> getRoomList(){
         ObservableList<Phong> phongList = FXCollections.observableArrayList();
@@ -209,12 +220,6 @@ public class CheckIn implements Initializable {
         showRooms();
     }
 
-    public void goToCheckOut(ActionEvent event) throws IOException {
-//        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//        Parent root = FXMLLoader.load(getClass().getResource("CheckOut.fxml"));
-//        stage.setScene(new Scene(root));
-        System.out.println(event.getSource());
-    }
 
     public void showThuePhong(){
         ObservableList<ThuePhong> listTP = getListThuePhong();

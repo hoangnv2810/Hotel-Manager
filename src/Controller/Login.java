@@ -54,7 +54,7 @@ public class Login {
 
     private void goToHomePage(ActionEvent e) throws IOException {
         Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("../View/CustomerManager.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../View/MenuBarBorderPane.fxml"));
         stage.setScene(new Scene(root));
         stage.centerOnScreen();
         stage.show();
