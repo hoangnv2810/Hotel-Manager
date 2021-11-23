@@ -19,7 +19,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="15.0" layoutY="85.0" text="Mã thuê :">
+      <Label layoutX="15.0" layoutY="85.0" text="Mã khách hàng :">
          <font>
             <Font size="14.0" />
          </font>
@@ -54,34 +54,32 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <ComboBox fx:id="comBoxMP1" editable="true" layoutX="129.0" layoutY="83.0" prefHeight="25.0" prefWidth="103.0" />
-      <ComboBox fx:id="comBoxMP11" editable="true" layoutX="129.0" layoutY="123.0" prefHeight="25.0" prefWidth="103.0" />
-      <Label layoutX="405.0" layoutY="46.0" text="Nguyễn Văn A">
+      <Label fx:id="lbTenKH" layoutX="405.0" layoutY="46.0">
          <font>
             <Font name="System Italic" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="613.0" layoutY="46.0" text="Nam">
+      <Label fx:id="lbGioiTinh" layoutX="613.0" layoutY="46.0">
          <font>
             <Font name="System Italic" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="370.0" layoutY="85.0" text="0123456789999">
+      <Label fx:id="lbSoCMND" layoutX="370.0" layoutY="85.0">
          <font>
             <Font name="System Italic" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="620.0" layoutY="86.0" text="01/01/2001">
+      <Label fx:id="lbNgaySinh" layoutX="620.0" layoutY="86.0">
          <font>
             <Font name="System Italic" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="597.0" layoutY="126.0" text="0888888888">
+      <Label fx:id="lbSoDT" layoutX="597.0" layoutY="126.0">
          <font>
             <Font name="System Italic" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="364.0" layoutY="125.0" text="Hà Nội">
+      <Label fx:id="lbQueQuan" layoutX="364.0" layoutY="125.0">
          <font>
             <Font name="System Italic" size="14.0" />
          </font>
@@ -101,7 +99,7 @@
             <Font name="System Italic" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="60.0" layoutY="309.0" text="Số ngày ở :">
+      <Label layoutX="60.0" layoutY="309.0" text="Số ngày :">
          <font>
             <Font name="System Italic" size="14.0" />
          </font>
@@ -111,12 +109,12 @@
             <Font name="System Bold Italic" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="345.0" layoutY="249.0" text="Tiền phòng :">
+      <Label layoutX="345.0" layoutY="249.0" text="Loại phòng :">
          <font>
             <Font name="System Italic" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="345.0" layoutY="279.0" text="Tiền cọc :">
+      <Label layoutX="345.0" layoutY="279.0" text="Tiền phòng :">
          <font>
             <Font name="System Italic" size="14.0" />
          </font>
@@ -126,13 +124,7 @@
             <Font name="System Italic" size="14.0" />
          </font>
       </Label>
-      <Button layoutX="599.0" layoutY="304.0" mnemonicParsing="false" text="Thanh Toán">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Button>
-      <ComboBox fx:id="comBoxMP111" editable="true" layoutX="129.0" layoutY="163.0" prefHeight="25.0" prefWidth="103.0" />
-      <Label layoutX="15.0" layoutY="165.0" text="Mã khách hàng :">
+      <Label layoutX="15.0" layoutY="165.0" text="Mã thuê :">
          <font>
             <Font size="14.0" />
          </font>
@@ -147,11 +139,49 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="364.0" layoutY="165.0" text="Việt Nam">
+      <Label fx:id="lbQuocTich" layoutX="364.0" layoutY="165.0">
          <font>
             <Font name="System Italic" size="14.0" />
          </font>
       </Label>
-      <TextField layoutX="129.0" layoutY="44.0" prefHeight="25.0" prefWidth="103.0" />
+      <TextField fx:id="tfMaHoaDon" disable="true" layoutX="129.0" layoutY="44.0" prefHeight="25.0" prefWidth="103.0" />
+      <TextField fx:id="tfMaPhong" disable="true" layoutX="129.0" layoutY="124.0" prefHeight="25.0" prefWidth="103.0" />
+      <Button fx:id="buttonThanhToan" layoutX="599.0" layoutY="304.0" mnemonicParsing="false" onAction="#handelBtThanhToan" text="Thanh Toán">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <TextField fx:id="tfMaKhachHang" disable="true" layoutX="129.0" layoutY="84.0" prefHeight="25.0" prefWidth="103.0" />
+      <Label fx:id="lbNgayDen" layoutX="142.0" layoutY="249.0">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbNgayDi" layoutX="142.0" layoutY="279.0">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbSoNgay" layoutX="142.0" layoutY="309.0">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbLoaiPhong" layoutX="437.0" layoutY="249.0">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbTongTien" layoutX="439.0" layoutY="307.0">
+         <font>
+            <Font name="System Bold Italic" size="16.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="cbMaThue" editable="true" focusTraversable="false" layoutX="129.0" layoutY="164.0" onAction="#handleActionCb" prefHeight="25.0" prefWidth="103.0" />
+      <Label fx:id="lbTienPhong" layoutX="437.0" layoutY="279.0">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

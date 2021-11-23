@@ -4,6 +4,7 @@ import DBConnection.DBConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -11,10 +12,13 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ResourceBundle;
 
-public class CustomerInfo {
+public class CustomerInfo implements Initializable {
     @FXML
     private DatePicker datePickerDob;
 
@@ -55,7 +59,7 @@ public class CustomerInfo {
         loader.setLocation(getClass().getResource("../View/MenuBarBorderPane.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
-        stage.setHeight(575);
+        stage.setHeight(555);
         stage.setScene(scene);
     }
 
@@ -76,7 +80,7 @@ public class CustomerInfo {
     }
 
     private void insertCustomer(){
-        String query = "INSERT INTO HotelManager.dbo.KhachHang VALUES (N'" + textFieldId.getText() + "', N'" + textFieldName.getText() + "', N'"
+        String query = "INSERT INTO HotelManager.dbo.KhachHang VALUES ( N'" + textFieldName.getText() + "', N'"
                 + datePickerDob.getValue().toString() + "', N'" + gender + "', N'" + textFieldIdCard.getText() + "', N'" + textFilePhoneNumber.getText() + "', N'" + textFieldHometown.getText() + "', N'" + textFieldNationality.getText() + "')";
         System.out.println(query);
         DBConnection databaseConnection = new DBConnection();
@@ -96,4 +100,26 @@ public class CustomerInfo {
         }
     }
 
+    private String getMKH() {
+        DBConnection dbc = new DBConnection();
+        Connection cn = dbc.getConnection();
+        String query = "SELECT MAX(maKH) FROM KhachHang";
+        Statement st;
+        ResultSet rs;
+        try {
+            st = cn.createStatement();
+            rs = st.executeQuery(query);
+            while (rs.next()) {
+                return "KH" + String.format("%02d", rs.getInt(1) + 1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        textFieldId.setText(getMKH());
+    }
 }

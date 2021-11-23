@@ -11,18 +11,18 @@
 
 <AnchorPane prefHeight="293.0" prefWidth="656.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CustomerInfo">
    <children>
-      <TextField fx:id="textFieldId" layoutX="109.0" layoutY="51.0" prefHeight="25.0" prefWidth="190.0" />
+      <TextField fx:id="textFieldId" disable="true" focusTraversable="false" layoutX="109.0" layoutY="51.0" prefHeight="25.0" prefWidth="190.0" />
       <Label layoutX="23.0" layoutY="53.0" text="Mã KH">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <DatePicker fx:id="datePickerDob" layoutX="109.0" layoutY="96.0" prefHeight="25.0" prefWidth="190.0" />
-      <TextField fx:id="textFieldNationality" layoutX="439.0" layoutY="186.0" prefHeight="25.0" prefWidth="190.0" />
-      <TextField fx:id="textFieldIdCard" layoutX="109.0" layoutY="141.0" prefHeight="25.0" prefWidth="190.0" />
-      <TextField fx:id="textFieldName" layoutX="439.0" layoutY="51.0" prefHeight="25.0" prefWidth="190.0" />
-      <TextField fx:id="textFieldHometown" layoutX="109.0" layoutY="186.0" prefHeight="25.0" prefWidth="190.0" />
-      <TextField fx:id="textFilePhoneNumber" layoutX="439.0" layoutY="141.0" prefHeight="25.0" prefWidth="190.0" />
+      <DatePicker fx:id="datePickerDob" focusTraversable="false" layoutX="109.0" layoutY="96.0" prefHeight="25.0" prefWidth="190.0" />
+      <TextField fx:id="textFieldNationality" focusTraversable="false" layoutX="439.0" layoutY="186.0" prefHeight="25.0" prefWidth="190.0" />
+      <TextField fx:id="textFieldIdCard" focusTraversable="false" layoutX="109.0" layoutY="141.0" prefHeight="25.0" prefWidth="190.0" />
+      <TextField fx:id="textFieldName" focusTraversable="false" layoutX="439.0" layoutY="51.0" prefHeight="25.0" prefWidth="190.0" />
+      <TextField fx:id="textFieldHometown" focusTraversable="false" layoutX="109.0" layoutY="186.0" prefHeight="25.0" prefWidth="190.0" />
+      <TextField fx:id="textFilePhoneNumber" focusTraversable="false" layoutX="439.0" layoutY="141.0" prefHeight="25.0" prefWidth="190.0" />
       <Label layoutX="225.0" layoutY="11.0" text="Thông tin khách hàng" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="20.0" />
@@ -63,9 +63,9 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button layoutX="510.0" layoutY="232.0" mnemonicParsing="false" onAction="#handleButtonSave" prefHeight="40.0" prefWidth="120.0" text="Lưu" />
-      <Button layoutX="23.0" layoutY="232.0" mnemonicParsing="false" onAction="#goBack" prefHeight="40.0" prefWidth="120.0" text="Quay lại" />
-      <RadioButton fx:id="rbMale" layoutX="439.0" layoutY="99.0" mnemonicParsing="false" onAction="#getGender" text="Nam">
+      <Button focusTraversable="false" layoutX="510.0" layoutY="232.0" mnemonicParsing="false" onAction="#handleButtonSave" prefHeight="40.0" prefWidth="120.0" text="Lưu" />
+      <Button focusTraversable="false" layoutX="23.0" layoutY="232.0" mnemonicParsing="false" onAction="#goBack" prefHeight="40.0" prefWidth="120.0" text="Quay lại" />
+      <RadioButton fx:id="rbMale" focusTraversable="false" layoutX="439.0" layoutY="99.0" mnemonicParsing="false" onAction="#getGender" text="Nam">
          <font>
             <Font size="14.0" />
          </font>
@@ -73,7 +73,7 @@
             <ToggleGroup fx:id="rbGender" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="rbFemale" layoutX="512.0" layoutY="99.0" mnemonicParsing="false" onAction="#getGender" text="Nữ" toggleGroup="$rbGender">
+      <RadioButton fx:id="rbFemale" focusTraversable="false" layoutX="512.0" layoutY="99.0" mnemonicParsing="false" onAction="#getGender" text="Nữ" toggleGroup="$rbGender">
          <font>
             <Font size="14.0" />
          </font>

@@ -28,7 +28,7 @@ public class MenuBarBorderPane implements Initializable {
         if ("Đặt phòng".equalsIgnoreCase(side)) {
             FXMLLoader menuLoader = new FXMLLoader(getClass().getResource("../View/CheckIn.fxml"));
             try {
-                stage.setHeight(575);
+                stage.setHeight(550);
                 stage.setWidth(720);
                 stage.centerOnScreen();
                 borderPane.setCenter(menuLoader.load());

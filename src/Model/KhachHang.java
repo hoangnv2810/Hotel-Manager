@@ -15,15 +15,15 @@ public class KhachHang {
     public KhachHang() {
     }
 
-    public KhachHang(String maKH, String ten, Date ngaySinh, String gioiTinh, String soCMND, String soDT, String queQuan, String quocTich) {
-        this.maKH = maKH;
+    public KhachHang(int maKH, String ten, Date ngaySinh, String gioiTinh, String soCMND, String soDT, String queQuan, String quocTich) {
+        this.maKH = "KH" + String.format("%02d", maKH);
         this.ten = ten;
         this.ngaySinh = ngaySinh;
         this.gioiTinh = gioiTinh;
         this.soCMND = soCMND;
         this.soDT = soDT;
         this.queQuan = queQuan;
-        this.quocTich = this.quocTich;
+        this.quocTich = quocTich;
     }
 
     public String getMaKH() {

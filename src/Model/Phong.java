@@ -6,8 +6,8 @@ public class Phong {
     private String trangThai;
     private int gia;
 
-    public Phong(String maPhong, String loaiPhong, String trangThai, int gia) {
-        this.maPhong = maPhong;
+    public Phong(int maPhong, String loaiPhong, String trangThai, int gia) {
+        this.maPhong = "P" + String.format("%02d", maPhong);
         this.loaiPhong = loaiPhong;
         this.trangThai = trangThai;
         this.gia = gia;
