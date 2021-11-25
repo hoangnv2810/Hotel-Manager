@@ -57,4 +57,36 @@ public class KhachHang {
     public String getQuocTich() {
         return quocTich;
     }
+
+    public void setMaKH(int maKH) {
+        this.maKH = "KH" + String.format("%02d", maKH);
+    }
+
+    public void setTen(String ten) {
+        this.ten = ten;
+    }
+
+    public void setNgaySinh(Date ngaySinh) {
+        this.ngaySinh = ngaySinh;
+    }
+
+    public void setGioiTinh(String gioiTinh) {
+        this.gioiTinh = gioiTinh;
+    }
+
+    public void setSoCMND(String soCMND) {
+        this.soCMND = soCMND;
+    }
+
+    public void setSoDT(String soDT) {
+        this.soDT = soDT;
+    }
+
+    public void setQueQuan(String queQuan) {
+        this.queQuan = queQuan;
+    }
+
+    public void setQuocTich(String quocTich) {
+        this.quocTich = quocTich;
+    }
 }

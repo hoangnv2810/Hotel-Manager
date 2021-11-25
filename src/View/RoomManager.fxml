@@ -8,10 +8,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="350.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ManageRoom">
+<AnchorPane prefHeight="365.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ManageRoom">
    <children>
-      <TextField layoutX="101.0" layoutY="55.0" prefHeight="25.0" prefWidth="170.0" />
-      <TextField layoutX="101.0" layoutY="175.0" prefHeight="25.0" prefWidth="170.0" />
+      <TextField fx:id="idText" layoutX="101.0" layoutY="55.0" prefHeight="25.0" prefWidth="170.0" />
+      <TextField fx:id="priceText" layoutX="101.0" layoutY="175.0" prefHeight="25.0" prefWidth="170.0" />
       <Label layoutX="15.0" layoutY="57.0" text="Mã Phòng">
          <font>
             <Font size="14.0" />
@@ -32,17 +32,17 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField layoutX="101.0" layoutY="95.0" prefHeight="25.0" prefWidth="170.0" />
-      <TextField layoutX="101.0" layoutY="135.0" prefHeight="25.0" prefWidth="170.0" />
-      <TableView fx:id="customerTable" layoutX="326.0" layoutY="95.0" prefHeight="225.0" prefWidth="382.0">
+      <TextField fx:id="typeText" layoutX="101.0" layoutY="95.0" prefHeight="25.0" prefWidth="170.0" />
+      <TextField fx:id="statusText" layoutX="101.0" layoutY="135.0" prefHeight="25.0" prefWidth="170.0" />
+      <TableView fx:id="table" layoutX="326.0" layoutY="95.0" onMouseClicked="#handleMouseAction" prefHeight="225.0" prefWidth="382.0">
          <columns>
             <TableColumn fx:id="idColumn" prefWidth="90.0" text="Mã Phòng" />
-            <TableColumn fx:id="nameColumn" prefWidth="107.0" text="Loại Phòng" />
-            <TableColumn fx:id="dobColumn" minWidth="3.0" prefWidth="82.0" text="Tình Trạng" />
-            <TableColumn fx:id="genderColumn" prefWidth="102.0" text="Giá Phòng" />
+            <TableColumn fx:id="typeColumn" prefWidth="107.0" text="Loại Phòng" />
+            <TableColumn fx:id="statusColumn" minWidth="3.0" prefWidth="82.0" text="Tình Trạng" />
+            <TableColumn fx:id="priceColumn" prefWidth="102.0" text="Giá Phòng" />
          </columns>
       </TableView>
-      <TextField layoutX="413.0" layoutY="55.0" prefHeight="25.0" prefWidth="239.0" />
+      <TextField fx:id="seachText" layoutX="413.0" layoutY="55.0" onKeyReleased="#keyReased" prefHeight="25.0" prefWidth="239.0" />
       <Label layoutX="326.0" layoutY="58.0" text="Tìm kiếm">
          <font>
             <Font size="14.0" />
@@ -53,9 +53,9 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Button layoutX="14.0" layoutY="219.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="Thêm" />
-      <Button layoutX="151.0" layoutY="219.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="Sửa" />
-      <Button layoutX="14.0" layoutY="277.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="Xóa" />
-      <Button layoutX="151.0" layoutY="277.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="Làm mới" />
+      <Button layoutX="14.0" layoutY="219.0" mnemonicParsing="false" onAction="#insert" prefHeight="40.0" prefWidth="120.0" text="Thêm" />
+      <Button layoutX="151.0" layoutY="219.0" mnemonicParsing="false" onAction="#update" prefHeight="40.0" prefWidth="120.0" text="Sửa" />
+      <Button layoutX="14.0" layoutY="277.0" mnemonicParsing="false" onAction="#delete" prefHeight="40.0" prefWidth="120.0" text="Xóa" />
+      <Button layoutX="151.0" layoutY="277.0" mnemonicParsing="false" onAction="#refresh" prefHeight="40.0" prefWidth="120.0" text="Làm mới" />
    </children>
 </AnchorPane>

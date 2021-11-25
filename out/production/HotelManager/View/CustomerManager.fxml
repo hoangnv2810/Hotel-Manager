@@ -7,84 +7,89 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="448.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ManageCustomer">
+<AnchorPane prefHeight="473.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ManageCustomer">
    <children>
-      <TextField layoutX="101.0" layoutY="61.0" prefHeight="25.0" prefWidth="170.0" />
-      <TextField layoutX="101.0" layoutY="251.0" prefHeight="25.0" prefWidth="170.0" />
-      <DatePicker layoutX="101.0" layoutY="141.0" prefHeight="25.0" prefWidth="170.0" />
-      <Label layoutX="15.0" layoutY="64.0" text="Mã KH">
+      <TextField fx:id="idText" layoutX="101.0" layoutY="47.0" prefHeight="25.0" prefWidth="170.0" />
+      <TextField fx:id="numberPhoneText" layoutX="101.0" layoutY="237.0" prefHeight="25.0" prefWidth="170.0" />
+      <DatePicker fx:id="dboDatePicker" layoutX="101.0" layoutY="127.0" prefHeight="25.0" prefWidth="170.0" />
+      <Label layoutX="15.0" layoutY="50.0" text="Mã KH">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="104.0" text="Tên KH">
+      <Label layoutX="14.0" layoutY="90.0" text="Tên KH">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="15.0" layoutY="144.0" text="Ngày sinh">
+      <Label layoutX="15.0" layoutY="130.0" text="Ngày sinh">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="15.0" layoutY="180.0" text="Giới tính">
+      <Label layoutX="15.0" layoutY="166.0" text="Giới tính">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="15.0" layoutY="214.0" text="Số CMND">
+      <Label layoutX="15.0" layoutY="200.0" text="Số CMND">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="15.0" layoutY="254.0" text="Số ĐT">
+      <Label layoutX="15.0" layoutY="240.0" text="Số ĐT">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="395.0" layoutY="25.0" text="Quản lý khách hàng">
+      <Label layoutX="395.0" layoutY="11.0" text="Quản lý khách hàng">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <TextField layoutX="101.0" layoutY="101.0" prefHeight="25.0" prefWidth="170.0" />
-      <RadioButton layoutX="101.0" layoutY="181.0" mnemonicParsing="false" text="Nam" />
-      <RadioButton layoutX="168.0" layoutY="181.0" mnemonicParsing="false" text="Nữ" />
-      <TextField layoutX="101.0" layoutY="211.0" prefHeight="25.0" prefWidth="170.0" />
-      <TextField layoutX="101.0" layoutY="291.0" prefHeight="25.0" prefWidth="170.0" />
-      <TextField layoutX="101.0" layoutY="331.0" prefHeight="25.0" prefWidth="170.0" />
-      <Label layoutX="15.0" layoutY="294.0" prefHeight="20.0" prefWidth="70.0" text="Quê quán">
+      <TextField fx:id="nameText" layoutX="101.0" layoutY="87.0" prefHeight="25.0" prefWidth="170.0" />
+      <RadioButton fx:id="maleRadioButton" layoutX="101.0" layoutY="167.0" mnemonicParsing="false" text="Nam">
+         <toggleGroup>
+            <ToggleGroup fx:id="genderGroup" />
+         </toggleGroup></RadioButton>
+      <RadioButton fx:id="femaleRadioButton" layoutX="168.0" layoutY="167.0" mnemonicParsing="false" text="Nữ" toggleGroup="$genderGroup" />
+      <TextField fx:id="idCardText" layoutX="101.0" layoutY="197.0" prefHeight="25.0" prefWidth="170.0" />
+      <TextField fx:id="nativePlaceText" layoutX="101.0" layoutY="277.0" prefHeight="25.0" prefWidth="170.0" />
+      <TextField fx:id="nationalityText" layoutX="101.0" layoutY="317.0" prefHeight="25.0" prefWidth="170.0" />
+      <Label layoutX="15.0" layoutY="280.0" prefHeight="20.0" prefWidth="70.0" text="Quê quán">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="15.0" layoutY="334.0" prefHeight="20.0" prefWidth="70.0" text="Quốc tịch">
+      <Label layoutX="15.0" layoutY="320.0" prefHeight="20.0" prefWidth="70.0" text="Quốc tịch">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <TableView fx:id="customerTable" layoutX="309.0" layoutY="101.0" prefHeight="315.0" prefWidth="663.0">
-        <columns>
-          <TableColumn fx:id="idColumn" prefWidth="49.0" text="Mã KH" />
-          <TableColumn fx:id="nameColumn" prefWidth="148.0" text="Tên" />
+      <TableView fx:id="customerTable" layoutX="309.0" layoutY="87.0" onMouseClicked="#handleMouseAction" prefHeight="373.0" prefWidth="663.0">
+         <columns>
+            <TableColumn fx:id="idColumn" prefWidth="66.0" text="Mã KH" />
+            <TableColumn fx:id="nameColumn" prefWidth="131.0" text="Tên" />
             <TableColumn fx:id="dobColumn" minWidth="3.0" prefWidth="82.0" text="Ngày sinh" />
             <TableColumn fx:id="genderColumn" prefWidth="59.0" text="Giới tính" />
             <TableColumn fx:id="idCardColumn" prefWidth="93.0" text="Số CMND" />
             <TableColumn fx:id="numberPhoneColumn" prefWidth="86.0" text="Số ĐT" />
             <TableColumn fx:id="nativePlaceColumn" prefWidth="71.0" text="Quê quán" />
             <TableColumn fx:id="nationalityColumn" prefWidth="77.0" text="Quốc tịch" />
-        </columns>
+         </columns>
       </TableView>
-      <TextField layoutX="395.0" layoutY="61.0" prefHeight="25.0" prefWidth="340.0" />
-      <Label layoutX="308.0" layoutY="64.0" text="Tìm kiếm">
+      <TextField fx:id="seachText" layoutX="395.0" layoutY="47.0" onKeyReleased="#seachKeyReleased" prefHeight="25.0" prefWidth="450.0" />
+      <Label layoutX="308.0" layoutY="50.0" text="Tìm kiếm">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Button layoutX="151.0" layoutY="374.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="Xóa" />
-      <Button layoutX="15.0" layoutY="374.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="Sửa" />
+      <Button layoutX="151.0" layoutY="360.0" mnemonicParsing="false" onAction="#delete" prefHeight="40.0" prefWidth="120.0" text="Xóa" />
+      <Button layoutX="15.0" layoutY="360.0" mnemonicParsing="false" onAction="#update" prefHeight="40.0" prefWidth="120.0" text="Sửa" />
+      <Button layoutX="88.0" layoutY="419.0" mnemonicParsing="false" onAction="#update" prefHeight="40.0" prefWidth="120.0" text="Làm mới" />
    </children>
 </AnchorPane>

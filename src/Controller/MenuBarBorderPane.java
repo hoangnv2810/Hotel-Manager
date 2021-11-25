@@ -60,7 +60,7 @@ public class MenuBarBorderPane implements Initializable {
             FXMLLoader menuLoader = new FXMLLoader(getClass().getResource("../View/CustomerManager.fxml"));
             try {
                 stage.centerOnScreen();
-                stage.setHeight(500);
+                stage.setHeight(535);
                 stage.setWidth(1000);
                 borderPane.setCenter(menuLoader.load());
             } catch (IOException e) {

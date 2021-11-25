@@ -6,6 +6,9 @@ public class Phong {
     private String trangThai;
     private int gia;
 
+    public Phong() {
+    }
+
     public Phong(int maPhong, String loaiPhong, String trangThai, int gia) {
         this.maPhong = "P" + String.format("%02d", maPhong);
         this.loaiPhong = loaiPhong;
@@ -31,5 +34,21 @@ public class Phong {
 
     public int getGia() {
         return gia;
+    }
+
+    public void setMaPhong(int maPhong) {
+        this.maPhong = "P" + String.format("%02d", maPhong);
+    }
+
+    public void setLoaiPhong(String loaiPhong) {
+        this.loaiPhong = loaiPhong;
+    }
+
+    public void setTrangThai(String trangThai) {
+        this.trangThai = trangThai;
+    }
+
+    public void setGia(int gia) {
+        this.gia = gia;
     }
 }
