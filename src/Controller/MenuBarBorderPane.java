@@ -31,7 +31,6 @@ public class MenuBarBorderPane implements Initializable {
         MenuItem mItem = (MenuItem) event.getSource();
         String side = mItem.getText();
         Stage stage = (Stage) borderPane.getScene().getWindow();
-        System.out.println(mItem.getText());
         if ("Đặt phòng".equalsIgnoreCase(side)) {
             FXMLLoader menuLoader = new FXMLLoader(getClass().getResource("../View/CheckIn.fxml"));
             try {
@@ -44,15 +43,7 @@ public class MenuBarBorderPane implements Initializable {
             }
         } else if ("Thanh toán".equalsIgnoreCase(side)) {
             FXMLLoader menuLoader = new FXMLLoader(getClass().getResource("../View/CheckOut.fxml"));
-//            try {
-//                borderPane.setCenter(menuLoader.load());
-//                stage.centerOnScreen();
-//                stage.setWidth(720);
-//                stage.setHeight(420);
-//                System.out.println(borderPane.getScene().getWindow());
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
+
             StackPane secondLayout = new StackPane();
             secondLayout.getChildren().add(menuLoader.load());
 
@@ -71,50 +62,80 @@ public class MenuBarBorderPane implements Initializable {
         } else if ("Quản lý phòng".equalsIgnoreCase(side)){
             FXMLLoader menuLoader = new FXMLLoader(getClass().getResource("../View/RoomManager.fxml"));
             try {
-                stage.centerOnScreen();
-                stage.setHeight(400);
-                stage.setWidth(735);
-                borderPane.setCenter(menuLoader.load());
+                StackPane secondLayout = new StackPane();
+                secondLayout.getChildren().add(menuLoader.load());
+                Scene secondScene = new Scene(secondLayout);
+
+                Stage newWindow = new Stage();
+                newWindow.setTitle("Quản lý phòng");
+                newWindow.setScene(secondScene);
+
+                newWindow.initModality(Modality.WINDOW_MODAL);
+                newWindow.initOwner(stage);
+
+                Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+                newWindow.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+                newWindow.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+                newWindow.show();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else if("Quản lý khách hàng".equalsIgnoreCase(side)){
             FXMLLoader menuLoader = new FXMLLoader(getClass().getResource("../View/CustomerManager.fxml"));
             try {
-                stage.setHeight(480);
-                stage.setWidth(1000);
-                borderPane.setCenter(menuLoader.load());
+                StackPane secondLayout = new StackPane();
+                secondLayout.getChildren().add(menuLoader.load());
+                Scene secondScene = new Scene(secondLayout);
+
+                Stage newWindow = new Stage();
+                newWindow.setTitle("Quản lý khách hàng");
+                newWindow.setScene(secondScene);
+
+                newWindow.initModality(Modality.WINDOW_MODAL);
+                newWindow.initOwner(stage);
+
+                Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+                newWindow.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+                newWindow.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+                newWindow.show();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else if("Quản lý nhân viên".equalsIgnoreCase(side)){
             FXMLLoader menuLoader = new FXMLLoader(getClass().getResource("../View/EmployeeManager.fxml"));
             try {
-                stage.setHeight(600);
-                stage.setWidth(915);
-                stage.centerOnScreen();
-                borderPane.setCenter(menuLoader.load());
+                StackPane secondLayout = new StackPane();
+                secondLayout.getChildren().add(menuLoader.load());
+                Scene secondScene = new Scene(secondLayout);
+
+                Stage newWindow = new Stage();
+                newWindow.setTitle("Quản lý nhân viên");
+                newWindow.setScene(secondScene);
+
+                newWindow.initModality(Modality.WINDOW_MODAL);
+                newWindow.initOwner(stage);
+
+                Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+                newWindow.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+                newWindow.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+                newWindow.show();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else if("Thông tin".equalsIgnoreCase(side)){
             FXMLLoader menuLoader = new FXMLLoader(getClass().getResource("../View/InforUser.fxml"));
-//            InforUser inforUser = menuLoader.getController();
-//            inforUser.setInfor("admin");
             StackPane secondLayout = new StackPane();
             secondLayout.getChildren().add(menuLoader.load());
-            System.out.println(secondLayout.getChildren());
-            Scene secondScene = new Scene(secondLayout, 340, 300);
-
+            Scene secondScene = new Scene(secondLayout);
             Stage newWindow = new Stage();
             newWindow.setTitle("Thông tin tài khoản");
             newWindow.setScene(secondScene);
-
+            InforUser inforUser = menuLoader.getController();
             newWindow.initModality(Modality.WINDOW_MODAL);
             newWindow.initOwner(stage);
-
             newWindow.setX(stage.getX() + 200);
             newWindow.setY(stage.getY() + 100);
+            inforUser.setInfor(labelUsername.getText());
             newWindow.show();
         }
     }
@@ -129,7 +150,8 @@ public class MenuBarBorderPane implements Initializable {
         }
     }
 
-//    public void displayUsername(String username){
-//        labelUsername.setText(username);
-//    }
+    public void getusername(String username){
+        labelUsername.setText(username);
+        labelUsername.setVisible(false);
+    }
 }

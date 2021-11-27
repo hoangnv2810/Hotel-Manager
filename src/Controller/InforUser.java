@@ -38,14 +38,12 @@ public class InforUser implements Initializable {
         DBConnection db = new DBConnection();
         Connection cn = db.getConnection();
         String query = "SELECT * FROM [User] WHERE username = '" + username + "'";
+        Statement st;
+        ResultSet rs;
         try {
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(query);
+            st = cn.createStatement();
+            rs = st.executeQuery(query);
             while (rs.next()) {
-//                U new User(rs.getInt("id"), rs.getString("tenNV"), rs.getDate("ngaySinh"),
-//                rs.getString("gioiTinh"), rs.getString("username"), rs.getString("password"),
-//                rs.getString("soDT"), rs.getString("email"), rs.getString("diaChi"),
-//                rs.getInt("luong"));
                 labelUsername.setText(rs.getString("username"));
                 labelName.setText(rs.getString("tenNV"));
                 labelDob.setText(String.valueOf(rs.getDate("ngaySinh")));
@@ -61,6 +59,9 @@ public class InforUser implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        MenuBarBorderPane menuBarBorderPane = new MenuBarBorderPane();
+//        setInfor(menuBarBorderPane.displayUsername());
+//        setInfor(menuBarBorderPane.getUsername());
+//        System.out.println(menuBarBorderPane.getUsername());
     }
 }

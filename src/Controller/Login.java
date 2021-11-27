@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,7 +11,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -58,18 +56,14 @@ public class Login implements Initializable {
     }
 
     private void goToHomePage(ActionEvent e) throws IOException {
-        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+        ((Stage) ((Node) e.getSource()).getScene().getWindow()).close();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/MenuBarBorderPane.fxml"));
         Parent root = loader.load();
+        Stage stage = new Stage();
         stage.setScene(new Scene(root));
-//        MenuBarBorderPane menuBarBorderPane = loader.getController();
-//        menuBarBorderPane.displayUsername(usernameTextField.getText());
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/InforUser"));
-//        InforUser inforUser = loader.getController();
-//        inforUser.setInfor(usernameTextField.getText());
-        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
-        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+        stage.centerOnScreen();
+        MenuBarBorderPane menuBarBorderPane = loader.getController();
+        menuBarBorderPane.getusername(usernameTextField.getText());
         stage.show();
     }
 
