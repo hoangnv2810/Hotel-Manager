@@ -15,6 +15,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -91,6 +93,9 @@ public class CheckIn implements Initializable {
     @FXML
     private TableColumn<ThuePhong, String> tcThanhToan;
 
+    @FXML
+    private Label labelUsername;
+
     private String maThue;
     private String maPhong;
 
@@ -98,18 +103,33 @@ public class CheckIn implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         comBoxMP.setItems(getMP());
         comBoxMKH.setItems(getMKH());
+        tvThuePhong.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        tvPhong.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         dpNgayDen.setValue(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(new Date())));
         showRooms();
         showThuePhong();
     }
 
+
     @FXML
     void gotoInforCustomer(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("../View/CustomerInfo.fxml"));
-        stage.centerOnScreen();
-        stage.setHeight(325);
-        stage.setScene(new Scene(root));
+        StackPane secondLayout = new StackPane();
+        secondLayout.getChildren().add(root);
+
+        Scene secondScene = new Scene(secondLayout);
+
+        Stage newWindow = new Stage();
+        newWindow.setTitle("Thông tin tài khoản");
+        newWindow.setScene(secondScene);
+
+        newWindow.initModality(Modality.WINDOW_MODAL);
+        newWindow.initOwner(stage);
+
+        newWindow.setX(stage.getX() + 50);
+        newWindow.setY(stage.getY() + 100);
+        newWindow.show();
     }
 
     @FXML

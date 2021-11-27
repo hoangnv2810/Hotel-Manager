@@ -43,7 +43,7 @@
          </columns>
       </TableView>
       <Button fx:id="btDatPhong" focusTraversable="false" layoutX="14.0" layoutY="157.0" mnemonicParsing="false" onAction="#handleInsertDP" prefHeight="40.0" prefWidth="125.0" text="Đặt Phòng" />
-      <Button fx:id="btDKKH" layoutX="568.0" layoutY="448.0" mnemonicParsing="false" onAction="#gotoInforCustomer" prefHeight="30.0" prefWidth="125.0" text="Đăng ký khách hàng" />
+      <Button fx:id="btDKKH" focusTraversable="false" layoutX="568.0" layoutY="448.0" mnemonicParsing="false" onAction="#gotoInforCustomer" prefHeight="30.0" prefWidth="125.0" text="Đăng ký khách hàng" />
       <TableView fx:id="tvThuePhong" focusTraversable="false" layoutX="14.0" layoutY="264.0" onMouseClicked="#handleMouseAction" prefHeight="173.0" prefWidth="681.0">
         <columns>
           <TableColumn fx:id="tcMT" prefWidth="101.0" style="-fx-alignment: CENTER;" text="Mã Thuê" />

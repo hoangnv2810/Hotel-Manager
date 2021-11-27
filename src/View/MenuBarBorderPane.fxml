@@ -26,10 +26,9 @@
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Tài khoản">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
-                  </items>
-                </Menu>
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#handleMenuItem" text="Thông tin" />
+                     </items></Menu>
               </menus>
             </MenuBar>
          </children>

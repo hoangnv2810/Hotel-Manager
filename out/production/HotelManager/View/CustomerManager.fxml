@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="473.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ManageCustomer">
+<AnchorPane prefHeight="413.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ManageCustomer">
    <children>
       <TextField fx:id="idText" layoutX="101.0" layoutY="47.0" prefHeight="25.0" prefWidth="170.0" />
       <TextField fx:id="numberPhoneText" layoutX="101.0" layoutY="237.0" prefHeight="25.0" prefWidth="170.0" />
@@ -70,7 +70,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TableView fx:id="customerTable" layoutX="309.0" layoutY="87.0" onMouseClicked="#handleMouseAction" prefHeight="373.0" prefWidth="663.0">
+      <TableView fx:id="customerTable" layoutX="309.0" layoutY="87.0" onMouseClicked="#handleMouseAction" prefHeight="315.0" prefWidth="663.0">
          <columns>
             <TableColumn fx:id="idColumn" prefWidth="66.0" text="Mã KH" />
             <TableColumn fx:id="nameColumn" prefWidth="131.0" text="Tên" />
@@ -88,8 +88,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button layoutX="151.0" layoutY="360.0" mnemonicParsing="false" onAction="#delete" prefHeight="40.0" prefWidth="120.0" text="Xóa" />
       <Button layoutX="15.0" layoutY="360.0" mnemonicParsing="false" onAction="#update" prefHeight="40.0" prefWidth="120.0" text="Sửa" />
-      <Button layoutX="88.0" layoutY="419.0" mnemonicParsing="false" onAction="#update" prefHeight="40.0" prefWidth="120.0" text="Làm mới" />
+      <Button layoutX="151.0" layoutY="360.0" mnemonicParsing="false" onAction="#update" prefHeight="40.0" prefWidth="120.0" text="Làm mới" />
    </children>
 </AnchorPane>

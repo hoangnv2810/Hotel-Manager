@@ -52,19 +52,6 @@ public class CustomerInfo implements Initializable {
     private String gender;
 
     @FXML
-    private void goBack(ActionEvent e) throws IOException {
-        //Lay Stage
-        FXMLLoader loader = new FXMLLoader();
-        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-        loader.setLocation(getClass().getResource("../View/MenuBarBorderPane.fxml"));
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-        stage.setHeight(555);
-        stage.setScene(scene);
-    }
-
-
-    @FXML
     void handleButtonSave(ActionEvent event) {
         insertCustomer();
     }

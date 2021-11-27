@@ -13,12 +13,12 @@ import javafx.event.ActionEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.Normalizer;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -28,6 +28,7 @@ import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 public class ManageCustomer implements Initializable {
 
@@ -287,28 +288,69 @@ public class ManageCustomer implements Initializable {
         }
     }
 
+//    public ArrayList<KhachHang> fillCustomer(String s) throws Exception {
+//        String sql = "select * from dbo.KhachHang as kh where kh.ten like '%"+s+"%'"+
+//                "union select * from dbo.KhachHang as kh where kh.soCMND like '%"+s+"%'"+
+//                "union select * from dbo.KhachHang as kh where kh.soDT like '%"+s+"%'";
+//        DBConnection dbc=new DBConnection();
+//        ArrayList<KhachHang> kh=new ArrayList<>();
+//        try (Connection cnn = dbc.getConnection(); PreparedStatement pstm = cnn.prepareStatement(sql);) {
+//            ResultSet rs=pstm.executeQuery();
+//            while(rs.next()){
+//                KhachHang kh1=new KhachHang();
+//                kh1.setMaKH(rs.getInt("maKH"));
+//                kh1.setTen(rs.getString("ten"));
+//                kh1.setNgaySinh(rs.getDate("ngaySinh"));
+//                kh1.setGioiTinh(rs.getString("gioiTinh"));
+//                kh1.setSoCMND(rs.getString("soCMND"));
+//                kh1.setSoDT(rs.getString("soDT"));
+//                kh1.setQueQuan(rs.getString("queQuan"));
+//                kh1.setQuocTich(rs.getString("quocTich"));
+//                kh.add(kh1);
+//            }
+//        }
+//        return kh;
+//    }
+
     public ArrayList<KhachHang> fillCustomer(String s) throws Exception {
-        String sql = "select * from dbo.KhachHang as kh where kh.ten like '%"+s+"%'"+
-                "union select * from dbo.KhachHang as kh where kh.soCMND like '%"+s+"%'"+
-                "union select * from dbo.KhachHang as kh where kh.soDT like '%"+s+"%'";
-        DBConnection dbc=new DBConnection();
+//        String sql = "select * from dbo.KhachHang as kh where kh.ten like '"+s+"%'"+
+//                "union select * from dbo.KhachHang as kh where kh.soCMND like '"+s+"%'"+
+//                "union select * from dbo.KhachHang as kh where kh.soDT like '"+s+"%'";
+//        DBConnection dbc=new DBConnection();
+//        ArrayList<KhachHang> kh=new ArrayList<>();
+//        try (Connection cnn = dbc.getConnection(); PreparedStatement pstm = cnn.prepareStatement(sql);) {
+//            ResultSet rs=pstm.executeQuery();
+//            while(rs.next()){
+//                KhachHang kh1=new KhachHang();
+//                kh1.setMaKH(rs.getInt("maKH"));
+//                kh1.setTen(rs.getString("ten"));
+//                kh1.setNgaySinh(rs.getDate("ngaySinh"));
+//                kh1.setGioiTinh(rs.getString("gioiTinh"));
+//                kh1.setSoCMND(rs.getString("soCMND"));
+//                kh1.setSoDT(rs.getString("soDT"));
+//                kh1.setQueQuan(rs.getString("queQuan"));
+//                kh1.setQuocTich(rs.getString("quocTich"));
+//                kh.add(kh1);
+//            }
+//        }
+        s=s.toLowerCase();
+        String s1=removeAccent(s);
         ArrayList<KhachHang> kh=new ArrayList<>();
-        try (Connection cnn = dbc.getConnection(); PreparedStatement pstm = cnn.prepareStatement(sql);) {
-            ResultSet rs=pstm.executeQuery();
-            while(rs.next()){
-                KhachHang kh1=new KhachHang();
-                kh1.setMaKH(rs.getInt("maKH"));
-                kh1.setTen(rs.getString("ten"));
-                kh1.setNgaySinh(rs.getDate("ngaySinh"));
-                kh1.setGioiTinh(rs.getString("gioiTinh"));
-                kh1.setSoCMND(rs.getString("soCMND"));
-                kh1.setSoDT(rs.getString("soDT"));
-                kh1.setQueQuan(rs.getString("queQuan"));
-                kh1.setQuocTich(rs.getString("quocTich"));
-                kh.add(kh1);
+        ArrayList<KhachHang> kh1=fillAll();
+        for(KhachHang i:kh1){
+            if(removeAccent(i.getTen().toLowerCase()).contains(s1) || i.getTen().toLowerCase().contains(s)
+                    || i.getSoCMND().contains(s1) || i.getSoDT().contains(s1)){
+                kh.add(i);
             }
         }
         return kh;
+    }
+
+    public static String removeAccent(String s) {
+        String temp = Normalizer.normalize(s, Normalizer.Form.NFD);
+        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        temp = pattern.matcher(temp).replaceAll("");
+        return temp.replaceAll("đ", "d");
     }
 
 }

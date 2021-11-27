@@ -9,63 +9,62 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="293.0" prefWidth="656.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CustomerInfo">
+<AnchorPane prefHeight="282.0" prefWidth="617.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CustomerInfo">
    <children>
-      <TextField fx:id="textFieldId" disable="true" focusTraversable="false" layoutX="109.0" layoutY="51.0" prefHeight="25.0" prefWidth="190.0" />
-      <Label layoutX="23.0" layoutY="53.0" text="Mã KH">
+      <TextField fx:id="textFieldId" disable="true" focusTraversable="false" layoutX="104.0" layoutY="51.0" prefHeight="25.0" prefWidth="190.0" />
+      <Label layoutX="18.0" layoutY="53.0" text="Mã KH">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <DatePicker fx:id="datePickerDob" focusTraversable="false" layoutX="109.0" layoutY="96.0" prefHeight="25.0" prefWidth="190.0" />
-      <TextField fx:id="textFieldNationality" focusTraversable="false" layoutX="439.0" layoutY="186.0" prefHeight="25.0" prefWidth="190.0" />
-      <TextField fx:id="textFieldIdCard" focusTraversable="false" layoutX="109.0" layoutY="141.0" prefHeight="25.0" prefWidth="190.0" />
-      <TextField fx:id="textFieldName" focusTraversable="false" layoutX="439.0" layoutY="51.0" prefHeight="25.0" prefWidth="190.0" />
-      <TextField fx:id="textFieldHometown" focusTraversable="false" layoutX="109.0" layoutY="186.0" prefHeight="25.0" prefWidth="190.0" />
-      <TextField fx:id="textFilePhoneNumber" focusTraversable="false" layoutX="439.0" layoutY="141.0" prefHeight="25.0" prefWidth="190.0" />
-      <Label layoutX="225.0" layoutY="11.0" text="Thông tin khách hàng" textAlignment="CENTER">
+      <DatePicker fx:id="datePickerDob" focusTraversable="false" layoutX="104.0" layoutY="96.0" prefHeight="25.0" prefWidth="190.0" />
+      <TextField fx:id="textFieldNationality" focusTraversable="false" layoutX="411.0" layoutY="186.0" prefHeight="25.0" prefWidth="190.0" />
+      <TextField fx:id="textFieldIdCard" focusTraversable="false" layoutX="104.0" layoutY="141.0" prefHeight="25.0" prefWidth="190.0" />
+      <TextField fx:id="textFieldName" focusTraversable="false" layoutX="411.0" layoutY="51.0" prefHeight="25.0" prefWidth="190.0" />
+      <TextField fx:id="textFieldHometown" focusTraversable="false" layoutX="104.0" layoutY="186.0" prefHeight="25.0" prefWidth="190.0" />
+      <TextField fx:id="textFilePhoneNumber" focusTraversable="false" layoutX="411.0" layoutY="141.0" prefHeight="25.0" prefWidth="190.0" />
+      <Label layoutX="206.0" layoutY="14.0" text="Thông tin khách hàng" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="360.0" layoutY="53.0" text="Tên KH">
+      <Label layoutX="332.0" layoutY="53.0" text="Tên KH">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="360.0" layoutY="99.0" text="Giới tính">
+      <Label layoutX="332.0" layoutY="99.0" text="Giới tính">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="360.0" layoutY="144.0" text="Số ĐT">
+      <Label layoutX="332.0" layoutY="144.0" text="Số ĐT">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="360.0" layoutY="189.0" text="Quốc Tịch">
+      <Label layoutX="332.0" layoutY="189.0" text="Quốc Tịch">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="23.0" layoutY="99.0" text="Ngày sinh">
+      <Label layoutX="18.0" layoutY="99.0" text="Ngày sinh">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="23.0" layoutY="144.0" text="Số CMND">
+      <Label layoutX="18.0" layoutY="144.0" text="Số CMND">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="23.0" layoutY="189.0" text="Quê Quán">
+      <Label layoutX="18.0" layoutY="189.0" text="Quê Quán">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Button focusTraversable="false" layoutX="510.0" layoutY="232.0" mnemonicParsing="false" onAction="#handleButtonSave" prefHeight="40.0" prefWidth="120.0" text="Lưu" />
-      <Button focusTraversable="false" layoutX="23.0" layoutY="232.0" mnemonicParsing="false" onAction="#goBack" prefHeight="40.0" prefWidth="120.0" text="Quay lại" />
-      <RadioButton fx:id="rbMale" focusTraversable="false" layoutX="439.0" layoutY="99.0" mnemonicParsing="false" onAction="#getGender" text="Nam">
+      <Button focusTraversable="false" layoutX="482.0" layoutY="228.0" mnemonicParsing="false" onAction="#handleButtonSave" prefHeight="40.0" prefWidth="120.0" text="Lưu" />
+      <RadioButton fx:id="rbMale" focusTraversable="false" layoutX="411.0" layoutY="99.0" mnemonicParsing="false" onAction="#getGender" text="Nam">
          <font>
             <Font size="14.0" />
          </font>
@@ -73,7 +72,7 @@
             <ToggleGroup fx:id="rbGender" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="rbFemale" focusTraversable="false" layoutX="512.0" layoutY="99.0" mnemonicParsing="false" onAction="#getGender" text="Nữ" toggleGroup="$rbGender">
+      <RadioButton fx:id="rbFemale" focusTraversable="false" layoutX="484.0" layoutY="99.0" mnemonicParsing="false" onAction="#getGender" text="Nữ" toggleGroup="$rbGender">
          <font>
             <Font size="14.0" />
          </font>
