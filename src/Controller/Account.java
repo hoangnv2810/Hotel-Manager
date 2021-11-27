@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
-public class InforUser implements Initializable {
+public class Account implements Initializable {
     @FXML
     private Label labelAddress;
 

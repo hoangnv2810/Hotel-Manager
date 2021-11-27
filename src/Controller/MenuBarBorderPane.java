@@ -7,7 +7,6 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
@@ -130,7 +129,7 @@ public class MenuBarBorderPane implements Initializable {
             Stage newWindow = new Stage();
             newWindow.setTitle("Thông tin tài khoản");
             newWindow.setScene(secondScene);
-            InforUser inforUser = menuLoader.getController();
+            Account inforUser = menuLoader.getController();
             newWindow.initModality(Modality.WINDOW_MODAL);
             newWindow.initOwner(stage);
             newWindow.setX(stage.getX() + 200);
