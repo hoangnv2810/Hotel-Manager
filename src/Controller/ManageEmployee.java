@@ -138,7 +138,7 @@ public class ManageEmployee implements Initializable {
             rs = st.executeQuery(query);
             User user;
             while (rs.next()) {
-                user = new User(rs.getInt("id"), rs.getString("tenNV"), rs.getDate("ngaySinh"), rs.getString("gioiTinh"), rs.getString("username"), rs.getString("password"), rs.getString("soDT"), rs.getString("email"), rs.getString("diaChi"), rs.getInt("luong"));
+                user = new User(rs.getString("id"), rs.getString("tenNV"), rs.getDate("ngaySinh"), rs.getString("gioiTinh"), rs.getString("username"), rs.getString("password"), rs.getString("soDT"), rs.getString("email"), rs.getString("diaChi"), rs.getInt("luong"));
                 userList.add(user);
 
 
@@ -221,7 +221,7 @@ public class ManageEmployee implements Initializable {
     }
 
     private void deleteUser() {
-        String id = tfmaNV.getText().substring(2);
+        String id = tfmaNV.getText();
 
         String query = "DELETE FROM [User] WHERE id ='" + Integer.parseInt(id) + "'";
         executeQuery(query);
@@ -305,7 +305,7 @@ public class ManageEmployee implements Initializable {
              PreparedStatement pstm = cnn.prepareStatement(sql);) {
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
-                User user = new User(rs.getInt("id"), rs.getString("tenNV"), rs.getDate("ngaySinh"), rs.getString("gioiTinh"), rs.getString("username"), rs.getString("password"), rs.getString("soDT"), rs.getString("email"), rs.getString("diaChi"), rs.getInt("luong"));
+                User user = new User(rs.getString("id"), rs.getString("tenNV"), rs.getDate("ngaySinh"), rs.getString("gioiTinh"), rs.getString("username"), rs.getString("password"), rs.getString("soDT"), rs.getString("email"), rs.getString("diaChi"), rs.getInt("luong"));
 
                 kh.add(user);
             }
@@ -333,7 +333,7 @@ public class ManageEmployee implements Initializable {
         try (Connection cnn = dbc.getConnection(); PreparedStatement pstm = cnn.prepareStatement(sql);) {
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
-                User user = new User(rs.getInt("id"), rs.getString("tenNV"), rs.getDate("ngaySinh"), rs.getString("gioiTinh"), rs.getString("username"), rs.getString("password"), rs.getString("soDT"), rs.getString("email"), rs.getString("diaChi"), rs.getInt("luong"));
+                User user = new User(rs.getString("id"), rs.getString("tenNV"), rs.getDate("ngaySinh"), rs.getString("gioiTinh"), rs.getString("username"), rs.getString("password"), rs.getString("soDT"), rs.getString("email"), rs.getString("diaChi"), rs.getInt("luong"));
             }
         }
         return kh;

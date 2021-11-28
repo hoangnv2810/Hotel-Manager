@@ -9,8 +9,8 @@ public class User {
     private String username,password,sdt,email,diaChi;
     private int luong;
 
-    public User(int maNV, String tenNV, Date ngaySinh, String gioiTinh, String username, String password, String sdt, String email, String diaChi,int luong) {
-        this.maNV = "NV" + String.format("%02d", maNV);
+    public User(String maNV, String tenNV, Date ngaySinh, String gioiTinh, String username, String password, String sdt, String email, String diaChi,int luong) {
+        this.maNV = maNV;
         this.tenNV = tenNV;
         this.ngaySinh = ngaySinh;
         this.gioiTinh = gioiTinh;

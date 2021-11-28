@@ -96,7 +96,7 @@ public class ManageRoom implements Initializable {
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
                 Phong p1 = new Phong();
-                p1.setMaPhong(rs.getInt("maPhong"));
+                p1.setMaPhong(rs.getString("maPhong"));
                 p1.setLoaiPhong(rs.getString("loaiPhong"));
                 p1.setTrangThai(rs.getString("trangThai"));
                 p1.setGia(rs.getInt("gia"));
@@ -109,14 +109,14 @@ public class ManageRoom implements Initializable {
     // Thao tác với nút thêm
     public void insert(ActionEvent e) throws SQLException {
         Phong p = new Phong();
-        int t = 0;
+//        int t = 0;
         if (phongList.size() != 0) {
             Phong p1 = phongList.get(phongList.size() - 1);
             String s = p1.getMaPhong();
             String s1 = "" + s.charAt(1) + s.charAt(2);
-            t = Integer.parseInt(s1);
+//            t = Integer.parseInt(s1);
         }
-        p.setMaPhong(t + 1);
+        p.setMaPhong(idText.getText());
         p.setLoaiPhong(typeText.getText());
         p.setTrangThai(statusText.getText());
         p.setGia(Integer.parseInt(priceText.getText()));
@@ -131,16 +131,17 @@ public class ManageRoom implements Initializable {
     //Thêm dữ liệu vào DB
     public boolean insertDB(Phong p) throws Exception {
         DBConnection dbc = new DBConnection();
-        String sql = "insert dbo.Phong (loaiphong,trangThai,gia) values (?,?,?)";
+        String sql = "insert dbo.Phong (maPhong,loaiphong,trangThai,gia) values (?,?,?,?)";
         try (Connection cnn = dbc.getConnection(); PreparedStatement pstm = cnn.prepareStatement(sql);) {
 //          pstm.setString(1, p.getMaPhong());
-            pstm.setString(1, p.getLoaiPhong());
+            pstm.setString(1, p.getMaPhong());
+            pstm.setString(2, p.getLoaiPhong());
             String s = p.getTrangThai();
             int th;
             if (s.equals("Trống")) th = 1;
             else th = 0;
-            pstm.setInt(2, th);
-            pstm.setInt(3, p.getGia());
+            pstm.setInt(3, th);
+            pstm.setInt(4, p.getGia());
             return pstm.executeUpdate() > 0;
         }
     }
@@ -162,10 +163,7 @@ public class ManageRoom implements Initializable {
         DBConnection dbc = new DBConnection();
         String sql = "delete dbo.Phong where MaPhong=?";
         try (Connection cnn = dbc.getConnection(); PreparedStatement pstm = cnn.prepareStatement(sql);) {
-            String s = o.getMaPhong();
-            String s1 = "" + s.charAt(1) + s.charAt(2);
-            int t = Integer.parseInt(s1);
-            pstm.setInt(1, t);
+            pstm.setString(1, o.getMaPhong());
             return pstm.executeUpdate() > 0;
         }
     }
@@ -174,7 +172,7 @@ public class ManageRoom implements Initializable {
     // Thao tác nút sửa
     public void update(ActionEvent e) {
         Phong p = new Phong();
-        p.setMaPhong(Integer.parseInt(idText.getText()));
+        p.setMaPhong(idText.getText());
         p.setLoaiPhong(typeText.getText());
         p.setTrangThai(statusText.getText());
         p.setGia(Integer.parseInt(priceText.getText()));
@@ -189,19 +187,20 @@ public class ManageRoom implements Initializable {
     // Cập nhật trong DB
     public boolean updateDB(Phong p) throws Exception {
         DBConnection dbc = new DBConnection();
-        String sql = "update dbo.Phong set loaiPhong=?, trangThai=?, gia=? where maPhong=?";
+        String sql = "update dbo.Phong set maPhong=?, loaiPhong=?, trangThai=?, gia=? where maPhong=?";
         try (Connection cnn = dbc.getConnection(); PreparedStatement pstm = cnn.prepareStatement(sql);) {
-            pstm.setString(1, p.getLoaiPhong());
+            pstm.setString(1, p.getMaPhong());
+            pstm.setString(2, p.getLoaiPhong());
             String s = p.getTrangThai();
             int t;
             if (s.equals("Trống")) t = 1;
             else t = 0;
-            pstm.setInt(2, t);
-            pstm.setInt(3, p.getGia());
-            String s1 = p.getMaPhong();
-            String s2 = "" + s1.charAt(1) + s1.charAt(2);
-            int t1 = Integer.parseInt(s2);
-            pstm.setInt(4, t1);
+            pstm.setInt(3, t);
+            pstm.setInt(4, p.getGia());
+//            String s1 = p.getMaPhong();
+//            String s2 = "" + s1.charAt(1) + s1.charAt(2);
+//            int t1 = Integer.parseInt(s2);
+            pstm.setString(5, idText.getText());
             return pstm.executeUpdate() > 0;
         }
     }
@@ -239,7 +238,7 @@ public class ManageRoom implements Initializable {
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
                 Phong p1 = new Phong();
-                p1.setMaPhong(rs.getInt("maPhong"));
+                p1.setMaPhong(rs.getString("maPhong"));
                 p1.setLoaiPhong(rs.getString("loaiPhong"));
                 p1.setTrangThai(rs.getString("trangThai"));
                 p1.setGia(rs.getInt("gia"));

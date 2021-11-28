@@ -15,7 +15,6 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -165,11 +164,6 @@ public class CheckOut implements Initializable {
         return DAO(query, "ngayDen");
     }
 
-//    private String ngayDi(String ma){
-//        String query = "SELECT ngayDi FROM ThuePhong WHERE maThue = " + ma;
-//        return DAO(query, "ngayDi");
-//    }
-
     private String ten(String ma) {
         String query = "SELECT ten FROM KhachHang WHERE maKH = '" + ma + "'";
         return DAO(query, "ten");
@@ -268,26 +262,26 @@ public class CheckOut implements Initializable {
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                     updateNgayDi();
                     updateTTP();
-                    alert.setHeaderText("Thông báo");
+                    alert.setHeaderText(null);
                     alert.setContentText("Xác nhận thành toán");
                     alert.show();
                 } else {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     updateNgayDi();
-                    alert.setHeaderText("Chú ý");
+                    alert.setHeaderText(null);
                     alert.setContentText("Mã thuê đã thanh toán");
                     alert.show();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
                 Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setHeaderText("Lỗi");
+                alert.setHeaderText(null);
                 alert.setContentText("Vui lòng thử lại");
                 alert.show();
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setHeaderText("Cảnh báo");
+            alert.setHeaderText(null);
             alert.setContentText("Vui lòng chọn mã thuê");
             alert.show();
         }

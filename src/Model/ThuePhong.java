@@ -14,10 +14,10 @@ public class ThuePhong {
     public ThuePhong() {
     }
 
-    public ThuePhong(String maThue, int maKH, int maPhong, Date ngayDen, Date ngayDi, String thanhToan) throws ParseException {
+    public ThuePhong(String maThue, int maKH, String maPhong, Date ngayDen, Date ngayDi, String thanhToan) throws ParseException {
         this.maThue = maThue;
         this.maKH = "KH" + String.format("%02d", maKH);
-        this.maPhong = "P" + String.format("%02d", maPhong);
+        this.maPhong = maPhong;
         this.ngayDen = ngayDen;
         this.ngayDi = ngayDi;
         this.thanhToan = thanhToan;
