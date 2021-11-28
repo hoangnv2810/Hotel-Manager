@@ -33,7 +33,6 @@ public class CheckIn implements Initializable {
     @FXML
     private DatePicker dpNgayDen;
 
-
     @FXML
     private ComboBox<String> comBoxMKH;
 
@@ -73,6 +72,12 @@ public class CheckIn implements Initializable {
     @FXML
     private TableColumn<ThuePhong, String> tcThanhToan;
 
+    @FXML
+    private TableColumn<ThuePhong, Float> tcTienCoc;
+
+    @FXML
+    private TextField tfTienCoc;
+
     private String maThue;
     private String maPhong;
     ObservableList<ThuePhong> listThuePhong;
@@ -89,6 +94,8 @@ public class CheckIn implements Initializable {
         tvThuePhong.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         tvPhong.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         dpNgayDen.setValue(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(new Date())));
+        tfTienCoc.setText("0");
+        tfTienCoc.setFocusTraversable(false);
         setCellValueThuePhong();
         setCellValueRoom();
         showMPTrong();
@@ -121,14 +128,19 @@ public class CheckIn implements Initializable {
 
     @FXML
     void handleInsertDP(ActionEvent event) {
+        datPhong(event);
+        handleButtonLamMoi(event);
+    }
+
+    private void datPhong(ActionEvent event){
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
         if (listMPTrong.contains(comBoxMP.getValue())) {
-            if(!getMKHDaTT().contains(comBoxMKH.getValue())){
+            if (!getMKHDaTT().contains(comBoxMKH.getValue())) {
                 String query = "INSERT INTO HotelManager.dbo.ThuePhong VALUES ( "
                         + Integer.parseInt(comBoxMKH.getSelectionModel().getSelectedItem().substring(2))
-                        + ", " + Integer.parseInt(comBoxMP.getSelectionModel().getSelectedItem().substring(1))
-                        + ", N'" + dpNgayDen.getValue().toString() + "', N'" + sdf.format(date) + "'," + 0 + ")";
+                        + ", '" + comBoxMP.getValue()
+                        + "', N'" + dpNgayDen.getValue().toString() + "', N'" + sdf.format(date) + "'," + 0 + "," + tfTienCoc.getText() + ")";
                 System.out.println(query);
 
                 DBConnection dbc = new DBConnection();
@@ -143,7 +155,6 @@ public class CheckIn implements Initializable {
                     alert.show();
                     updateTrangThaiPhong();
                     showThuePhong();
-                    handleButtonLamMoi(event);
                 } catch (Exception e) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Lỗi");
@@ -168,15 +179,8 @@ public class CheckIn implements Initializable {
 
     @FXML
     void handleButtonSua(ActionEvent event) {
-        if (getMPTrong().contains(comBoxMP.getValue())) {
-            updateThuePhong();
-            handleButtonLamMoi(event);
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("Lỗi");
-            alert.setContentText("Phòng đã được thuê");
-            alert.show();
-        }
+        updateThuePhong();
+        handleButtonLamMoi(event);
     }
 
     @FXML
@@ -185,18 +189,21 @@ public class CheckIn implements Initializable {
         if (tp != null) {
             ObservableList<String> getMKHDaTT = getMKHDaTT();
             maThue = tp.getMaThue();
-            maPhong = String.valueOf(Integer.parseInt(tp.getMaPhong().substring(1)));
+            maPhong = tp.getMaPhong();
             comBoxMP.getSelectionModel().select(tp.getMaPhong());
             dpNgayDen.setValue(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(tp.getNgayDen())));
             comBoxMKH.getSelectionModel().select(tp.getMaKH());
+            tfTienCoc.setText(String.valueOf(tp.getTienCoc()));
             if (getMKHDaTT.contains(tp.getMaKH())) {
                 comBoxMP.setDisable(true);
                 comBoxMKH.setDisable(true);
                 dpNgayDen.setDisable(true);
+                tfTienCoc.setDisable(true);
             } else {
                 comBoxMP.setDisable(false);
                 comBoxMKH.setDisable(false);
                 dpNgayDen.setDisable(false);
+                tfTienCoc.setDisable(false);
             }
         }
 
@@ -204,12 +211,18 @@ public class CheckIn implements Initializable {
 
     @FXML
     void handleButtonLamMoi(ActionEvent event) {
+        refesh(event);
+    }
+
+    private void refesh(ActionEvent event){
         comBoxMP.setValue(null);
         comBoxMKH.setValue(null);
         dpNgayDen.setValue(null);
+        tfTienCoc.setText(null);
         comBoxMKH.setDisable(false);
         comBoxMP.setDisable(false);
         dpNgayDen.setDisable(false);
+        tfTienCoc.setDisable(false);
         showThuePhong();
         showPhong();
         showMPTrong();
@@ -257,10 +270,10 @@ public class CheckIn implements Initializable {
         return listMK;
     }
 
-    public void showMKH(){
+    public void showMKH() {
         listMKH.clear();
         ArrayList<String> listMK = getMKH();
-        for(String s:listMK){
+        for (String s : listMK) {
             listMKH.add(s);
         }
         comBoxMKH.setItems(listMKH);
@@ -284,7 +297,7 @@ public class CheckIn implements Initializable {
     }
 
     public ArrayList<String> getMPTrong() {
-        ArrayList<String > listMPTrong = new ArrayList<>();
+        ArrayList<String> listMPTrong = new ArrayList<>();
         DBConnection dbc = new DBConnection();
         Connection cn = dbc.getConnection();
         String query = "SELECT maPhong FROM dbo.Phong WHERE trangThai = 'true'";
@@ -300,10 +313,10 @@ public class CheckIn implements Initializable {
         return listMPTrong;
     }
 
-    public void showMPTrong(){
+    public void showMPTrong() {
         listMPTrong.clear();
         ArrayList<String> listMP = getMPTrong();
-        for(String s:listMP){
+        for (String s : listMP) {
             listMPTrong.add(s);
         }
         comBoxMP.setItems(listMPTrong);
@@ -312,13 +325,13 @@ public class CheckIn implements Initializable {
     public void showPhong() {
         listPhong.clear();
         ArrayList<Phong> listRoom = getListRoom();
-        for(Phong p:listRoom){
+        for (Phong p : listRoom) {
             listPhong.add(p);
         }
         tvPhong.setItems(listPhong);
     }
 
-    private void setCellValueRoom(){
+    private void setCellValueRoom() {
         tcMaPhong.setCellValueFactory(new PropertyValueFactory<>("maPhong"));
         tcLoaiPhong.setCellValueFactory(new PropertyValueFactory<>("loaiPhong"));
         tcTinhTrang.setCellValueFactory(new PropertyValueFactory<>("trangThai"));
@@ -327,7 +340,7 @@ public class CheckIn implements Initializable {
 
 
     private void updateTrangThaiPhong() {
-        String query = "UPDATE Phong SET trangThai = '" + false + "' WHERE maPhong = " + Integer.parseInt(comBoxMP.getSelectionModel().getSelectedItem().substring(1));
+        String query = "UPDATE Phong SET trangThai = '" + false + "' WHERE maPhong = '" + comBoxMP.getValue() + "'";
         DBConnection dbc = new DBConnection();
         Connection cn = dbc.getConnection();
         Statement st;
@@ -340,11 +353,12 @@ public class CheckIn implements Initializable {
         showPhong();
     }
 
-    private void setCellValueThuePhong(){
+    private void setCellValueThuePhong() {
         tcMT.setCellValueFactory(new PropertyValueFactory<>("maThue"));
         tcMKH.setCellValueFactory(new PropertyValueFactory<>("maKH"));
         tcMP.setCellValueFactory(new PropertyValueFactory<>("maPhong"));
         tcNgayDen.setCellValueFactory(new PropertyValueFactory<>("ngayDen"));
+        tcTienCoc.setCellValueFactory(new PropertyValueFactory<>("tienCoc"));
         tcThanhToan.setCellValueFactory(new PropertyValueFactory<>("thanhToan"));
     }
 
@@ -357,7 +371,7 @@ public class CheckIn implements Initializable {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(query);
             while (rs.next()) {
-                listTP.add(new ThuePhong(rs.getString("maThue"), rs.getInt("maKH"), rs.getString("maPhong"), rs.getDate("ngayDen"), rs.getDate("ngayDi"), rs.getString("thanhToan")));
+                listTP.add(new ThuePhong(rs.getString("maThue"), rs.getInt("maKH"), rs.getString("maPhong"), rs.getDate("ngayDen"), rs.getDate("ngayDi"), rs.getString("thanhToan"), rs.getInt("tienCoc")));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -368,7 +382,7 @@ public class CheckIn implements Initializable {
     public void showThuePhong() {
         listThuePhong.clear();
         ArrayList<ThuePhong> listTP = getListThuePhong();
-        for(ThuePhong tp:listTP){
+        for (ThuePhong tp : listTP) {
             listThuePhong.add(tp);
         }
         tvThuePhong.setItems(listThuePhong);
@@ -376,16 +390,15 @@ public class CheckIn implements Initializable {
 
 
     private void updateThuePhong() {
-        int cbmp = Integer.parseInt(comBoxMP.getSelectionModel().getSelectedItem().substring(1));
+        String cbmp = comBoxMP.getValue();
         int cbmk = Integer.parseInt(comBoxMKH.getSelectionModel().getSelectedItem().substring(2));
-        if (cbmp != Integer.parseInt(maPhong)) {
+        if (cbmp.compareTo(maPhong) != 0) {
             doiPhong(maPhong);
-            doiPhong(String.valueOf(cbmp));
+            doiPhong(cbmp);
         }
-        String query = "UPDATE ThuePhong SET maKH = " + cbmk + ", maPhong = "
-                + cbmp + ", ngayDen = N'" + dpNgayDen.getValue().toString() + "' " +
+        String query = "UPDATE ThuePhong SET maKH = " + cbmk + ", maPhong = '"
+                + cbmp + "', ngayDen = N'" + dpNgayDen.getValue().toString() + "' , tienCoc = " + tfTienCoc.getText() +
                 " WHERE maThue = " + maThue;
-        System.out.println(query);
         DBConnection dbc = new DBConnection();
         Connection cn = dbc.getConnection();
         try {
@@ -405,14 +418,14 @@ public class CheckIn implements Initializable {
     private void doiPhong(String mPhong) {
         String query = "BEGIN\n" +
                 "    DECLARE @trangthai BIT\n" +
-                "    SELECT @trangthai = trangThai from Phong WHERE maPhong = " + mPhong + "\n" +
+                "    SELECT @trangthai = trangThai from Phong WHERE maPhong = '" + mPhong + "'\n" +
                 "    IF @trangthai = 'true'\n" +
                 "    BEGIN\n" +
-                "        UPDATE Phong SET trangThai = 'false' WHERE maPhong = " + mPhong + "\n" +
+                "        UPDATE Phong SET trangThai = 'false' WHERE maPhong = '" + mPhong + "'\n" +
                 "    END\n" +
                 "    ELSE\n" +
                 "    BEGIN\n" +
-                "        UPDATE Phong SET trangThai = 'true' WHERE maPhong = " + mPhong + "\n" +
+                "        UPDATE Phong SET trangThai = 'true' WHERE maPhong = '" + mPhong + "'\n" +
                 "    END\n" +
                 "END";
         DBConnection dbc = new DBConnection();
@@ -448,6 +461,7 @@ public class CheckIn implements Initializable {
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
+            alert.setTitle("Lỗi");
             alert.setContentText("Không thể xóa phòng đã thanh toán");
             alert.show();
         }
@@ -455,7 +469,7 @@ public class CheckIn implements Initializable {
     }
 
     private void updateTrangThaiPhongKhiHuy() {
-        String query = "UPDATE Phong SET trangThai = '" + true + "' WHERE maPhong = " + Integer.parseInt(comBoxMP.getSelectionModel().getSelectedItem().substring(1));
+        String query = "UPDATE Phong SET trangThai = '" + true + "' WHERE maPhong = '" + comBoxMP.getValue() + "'";
         DBConnection dbc = new DBConnection();
         Connection cn = dbc.getConnection();
         Statement st;

@@ -1,6 +1,9 @@
 package Controller;
 
 import DBConnection.DBConnection;
+import Model.KhachHang;
+import Model.Phong;
+import Model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -90,20 +93,25 @@ public class CheckOut implements Initializable {
         String ngayDi = getDateNow();
         tfMaHoaDon.setText(getMHD());
         tfMaPhong.setText(maPhong);
-        tfMaKhachHang.setText(maKH);
+        tfMaKhachHang.setText("KH" + String.format("%02d", Integer.parseInt(maKH)));
         lbNgayDen.setText(ngayDen);
         lbNgayDi.setText(ngayDi);
         lbSoNgay.setText(String.valueOf(soNgay(ngayDen, ngayDi)));
-        lbTenKH.setText(ten(maKH));
-        lbGioiTinh.setText(gioiTinh(maKH));
-        lbSoCMND.setText(soCMND(maKH));
-        lbNgaySinh.setText(ngaySinh(maKH));
-        lbQueQuan.setText(queQuan(maKH));
-        lbQuocTich.setText(quocTich(maKH));
-        lbSoDT.setText(soDT(maKH));
-        lbLoaiPhong.setText(loaiPhong(Integer.parseInt(maPhong.substring(1))));
-        lbTienPhong.setText(formatVND(tienPhong(Integer.parseInt(maPhong.substring(1)))));
-        lbTongTien.setText(formatVND(tongTien(Integer.parseInt(tienPhong(Integer.parseInt(maPhong.substring(1)))), soNgay(ngayDen, ngayDi))));
+
+        KhachHang kh = getKH(maKH);
+        lbTenKH.setText(kh.getTen());
+        lbGioiTinh.setText(kh.getGioiTinh());
+        lbSoCMND.setText(kh.getSoCMND());
+        lbNgaySinh.setText(String.valueOf(kh.getNgaySinh()));
+        lbQueQuan.setText(kh.getQueQuan());
+        lbQuocTich.setText(kh.getQuocTich());
+        lbSoDT.setText(kh.getSoDT());
+
+        Phong p = getPhong(maPhong);
+        lbLoaiPhong.setText(p.getLoaiPhong());
+        lbTienPhong.setText(formatVND(String.valueOf(p.getGia())));
+
+        lbTongTien.setText(formatVND(tongTien(p.getGia(), soNgay(ngayDen, ngayDi))));
     }
 
     private String getDateNow() {
@@ -149,9 +157,46 @@ public class CheckOut implements Initializable {
         return "";
     }
 
+    private KhachHang getKH(String maKH){
+        String query = "SELECT * FROM KhachHang WHERE maKH = " + maKH;
+        DBConnection dbc = new DBConnection();
+        Connection cn = dbc.getConnection();
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while (rs.next()){
+                return new KhachHang(rs.getInt("maKH"), rs.getString("ten"),
+                        rs.getDate("ngaySinh"), rs.getString("gioiTinh"),
+                        rs.getString("soCMND"), rs.getString("soDT"), rs.getString("queQuan"),
+                        rs.getString("quocTich"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new KhachHang();
+    }
+
+    private Phong getPhong(String maPhong){
+        String query = "SELECT * FROM Phong WHERE maPhong = '" + maPhong + "'";
+        DBConnection dbc = new DBConnection();
+        Connection cn = dbc.getConnection();
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while (rs.next()){
+                return new Phong(rs.getString("maPhong"), rs.getString("loaiPhong"), rs.getString("trangThai"), rs.getInt("gia"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new Phong();
+    }
+
+
+
     private String getMP(String ma) {
         String query = "SELECT maPhong FROM ThuePhong WHERE maThue = " + ma;
-        return "P" + String.format("%02d", Integer.parseInt(DAO(query, "maPhong")));
+        return DAO(query, "maPhong");
     }
 
     private String getMKH(String ma) {
@@ -162,51 +207,6 @@ public class CheckOut implements Initializable {
     private String ngayDen(String ma) {
         String query = "SELECT ngayDen FROM ThuePhong WHERE maThue = " + ma;
         return DAO(query, "ngayDen");
-    }
-
-    private String ten(String ma) {
-        String query = "SELECT ten FROM KhachHang WHERE maKH = '" + ma + "'";
-        return DAO(query, "ten");
-    }
-
-    private String gioiTinh(String ma) {
-        String query = "SELECT gioiTinh FROM KhachHang WHERE maKH = '" + ma + "'";
-        return DAO(query, "gioiTinh");
-    }
-
-    private String soCMND(String ma) {
-        String query = "SELECT soCMND FROM KhachHang WHERE maKH = '" + ma + "'";
-        return DAO(query, "soCMND");
-    }
-
-    private String ngaySinh(String ma) {
-        String query = "SELECT ngaySinh FROM KhachHang WHERE maKH = '" + ma + "'";
-        return DAO(query, "ngaySinh");
-    }
-
-    private String queQuan(String ma) {
-        String query = "SELECT queQuan FROM KhachHang WHERE maKH = '" + ma + "'";
-        return DAO(query, "queQuan");
-    }
-
-    private String quocTich(String ma) {
-        String query = "SELECT quocTich FROM KhachHang WHERE maKH = '" + ma + "'";
-        return DAO(query, "quocTich");
-    }
-
-    private String soDT(String ma) {
-        String query = "SELECT soDT FROM KhachHang WHERE maKH = '" + ma + "'";
-        return DAO(query, "soDT");
-    }
-
-    private String loaiPhong(int ma) {
-        String query = "SELECT loaiPhong FROM Phong WHERE maPhong = '" + ma + "'";
-        return DAO(query, "loaiPhong");
-    }
-
-    private String tienPhong(int ma) {
-        String query = "SELECT gia FROM Phong WHERE maPhong = '" + ma + "'";
-        return DAO(query, "gia");
     }
 
     private String DAO(String query, String columnLabel) {
@@ -250,7 +250,7 @@ public class CheckOut implements Initializable {
     void handelBtThanhToan(ActionEvent event) throws ParseException {
         String maThue = cbMaThue.getSelectionModel().getSelectedItem();
         if (maThue != null) {
-            String query = "INSERT INTO HotelManager.dbo.HoaDon VALUES (" + maThue + "," + tongTien(Integer.parseInt(tienPhong(Integer.parseInt(getMP(maThue).substring(1)))), soNgay(ngayDen(maThue), getDateNow())) + ", GETDATE())";
+            String query = "INSERT INTO HotelManager.dbo.HoaDon VALUES (" + maThue + "," + tongTien(getPhong(tfMaPhong.getText()).getGia(), soNgay(ngayDen(maThue), getDateNow())) + ", GETDATE())";
             ObservableList<String> listMTHD = getMTHoaDon();
             DBConnection dbc = new DBConnection();
             Connection cn = dbc.getConnection();
@@ -263,12 +263,14 @@ public class CheckOut implements Initializable {
                     updateNgayDi();
                     updateTTP();
                     alert.setHeaderText(null);
-                    alert.setContentText("Xác nhận thành toán");
+                    alert.setTitle("Thông báo");
+                    alert.setContentText("Thanh toán thành công");
                     alert.show();
                 } else {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     updateNgayDi();
                     alert.setHeaderText(null);
+                    alert.setTitle("Cảnh báo");
                     alert.setContentText("Mã thuê đã thanh toán");
                     alert.show();
                 }
@@ -276,12 +278,14 @@ public class CheckOut implements Initializable {
                 e.printStackTrace();
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText(null);
+                alert.setTitle("Lỗi");
                 alert.setContentText("Vui lòng thử lại");
                 alert.show();
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setHeaderText(null);
+            alert.setTitle("Cảnh báo");
             alert.setContentText("Vui lòng chọn mã thuê");
             alert.show();
         }
@@ -321,7 +325,7 @@ public class CheckOut implements Initializable {
     }
 
     private void updateTTP() {
-        String query = "UPDATE Phong SET trangThai = 1 WHERE maPhong = " + Integer.parseInt(tfMaPhong.getText().substring(1));
+        String query = "UPDATE Phong SET trangThai = 1 WHERE maPhong = '" + tfMaPhong.getText() + "'";
         DBConnection dbc = new DBConnection();
         Connection cn = dbc.getConnection();
         Statement st;

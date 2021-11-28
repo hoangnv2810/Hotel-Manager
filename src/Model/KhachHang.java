@@ -89,4 +89,18 @@ public class KhachHang {
     public void setQuocTich(String quocTich) {
         this.quocTich = quocTich;
     }
+
+    @Override
+    public String toString() {
+        return "KhachHang{" +
+                "maKH='" + maKH + '\'' +
+                ", ten='" + ten + '\'' +
+                ", ngaySinh=" + ngaySinh +
+                ", gioiTinh='" + gioiTinh + '\'' +
+                ", soCMND='" + soCMND + '\'' +
+                ", soDT='" + soDT + '\'' +
+                ", queQuan='" + queQuan + '\'' +
+                ", quocTich='" + quocTich + '\'' +
+                '}';
+    }
 }

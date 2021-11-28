@@ -1,5 +1,6 @@
 package Controller;
 
+import DBConnection.DBConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +17,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class MenuBarBorderPane implements Initializable {
@@ -26,6 +30,9 @@ public class MenuBarBorderPane implements Initializable {
     private Label labelUsername;
 
     @FXML
+    private MenuItem menuItemQLNV;
+
+    @FXML
     void handleMenuItem(ActionEvent event) throws IOException {
         MenuItem mItem = (MenuItem) event.getSource();
         String side = mItem.getText();
@@ -33,8 +40,8 @@ public class MenuBarBorderPane implements Initializable {
         if ("Đặt phòng".equalsIgnoreCase(side)) {
             FXMLLoader menuLoader = new FXMLLoader(getClass().getResource("../View/CheckIn.fxml"));
             try {
-                stage.setHeight(550);
-                stage.setWidth(720);
+                stage.setHeight(560);
+                stage.setWidth(710);
                 stage.centerOnScreen();
                 borderPane.setCenter(menuLoader.load());
             } catch (IOException e) {
@@ -144,6 +151,7 @@ public class MenuBarBorderPane implements Initializable {
         FXMLLoader menuLoader = new FXMLLoader(getClass().getResource("../View/CheckIn.fxml"));
         try {
             borderPane.setCenter(menuLoader.load());
+            labelUsername.setVisible(false);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -151,6 +159,26 @@ public class MenuBarBorderPane implements Initializable {
 
     public void getusername(String username){
         labelUsername.setText(username);
-        labelUsername.setVisible(false);
+        if(checkUser(username)){
+            menuItemQLNV.setVisible(true);
+        } else {
+            menuItemQLNV.setVisible(false);
+        }
+    }
+
+    private boolean checkUser(String username){
+        DBConnection dbc = new DBConnection();
+        Connection cn = dbc.getConnection();
+        String query = "SELECT isAdmin FROM [User] WHERE username = '" + username + "'";
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while (rs.next()){
+                return rs.getBoolean("isAdmin");
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
     }
 }

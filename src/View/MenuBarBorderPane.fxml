@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="515.0" prefWidth="706.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MenuBarBorderPane">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="695.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MenuBarBorderPane">
    <top>
       <VBox prefHeight="20.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -23,7 +23,7 @@
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#handleMenuItem" text="Quản lý phòng" />
                         <MenuItem mnemonicParsing="false" onAction="#handleMenuItem" text="Quản lý khách hàng" />
-                        <MenuItem mnemonicParsing="false" onAction="#handleMenuItem" text="Quản lý nhân viên" />
+                        <MenuItem fx:id="menuItemQLNV" mnemonicParsing="false" onAction="#handleMenuItem" text="Quản lý nhân viên" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Tài khoản">
@@ -36,6 +36,6 @@
       </VBox>
    </top>
    <bottom>
-      <Label fx:id="labelUsername" text="Label" BorderPane.alignment="CENTER" />
+      <Label fx:id="labelUsername" BorderPane.alignment="CENTER" />
    </bottom>
 </BorderPane>

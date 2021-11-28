@@ -60,6 +60,7 @@ public class Login implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/MenuBarBorderPane.fxml"));
         Parent root = loader.load();
         Stage stage = new Stage();
+        stage.setTitle("Check In");
         stage.setScene(new Scene(root));
         stage.centerOnScreen();
         MenuBarBorderPane menuBarBorderPane = loader.getController();
