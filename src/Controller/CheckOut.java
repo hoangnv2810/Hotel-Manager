@@ -3,6 +3,7 @@ package Controller;
 import DBConnection.DBConnection;
 import Model.KhachHang;
 import Model.Phong;
+import Model.ThuePhong;
 import Model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,6 +15,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import java.awt.*;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -21,6 +23,7 @@ import java.sql.Statement;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -75,30 +78,39 @@ public class CheckOut implements Initializable {
     private Label lbTienPhong;
 
     @FXML
+    private Label lbTienCoc;
+
+    @FXML
     private Label lbTongTien;
+
+    ObservableList<String> listMT;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        listMT = FXCollections.observableArrayList();
         tfMaHoaDon.setText(getMHD());
         cbMaThue.setVisibleRowCount(2);
-        cbMaThue.setItems(getMaThue());
+        showMT();
     }
 
     @FXML
     void handleActionCb(ActionEvent event) throws ParseException {
-        String maThue = cbMaThue.getSelectionModel().getSelectedItem();
-        String maPhong = getMP(maThue);
-        String maKH = getMKH(maThue);
-        String ngayDen = ngayDen(maThue);
-        String ngayDi = getDateNow();
+        String maThue = cbMaThue.getValue();
         tfMaHoaDon.setText(getMHD());
-        tfMaPhong.setText(maPhong);
-        tfMaKhachHang.setText("KH" + String.format("%02d", Integer.parseInt(maKH)));
+
+        ThuePhong tp = getTPbyID(maThue);
+        String maKH = tp.getMaKH();
+        String maPhong = tp.getMaPhong();
+        String ngayDen = String.valueOf(tp.getNgayDen());
+        String ngayDi = getDateNow();
         lbNgayDen.setText(ngayDen);
         lbNgayDi.setText(ngayDi);
         lbSoNgay.setText(String.valueOf(soNgay(ngayDen, ngayDi)));
+        lbTienCoc.setText(formatVND(String.valueOf(tp.getTienCoc())));
+
 
         KhachHang kh = getKH(maKH);
+        tfMaKhachHang.setText(maKH);
         lbTenKH.setText(kh.getTen());
         lbGioiTinh.setText(kh.getGioiTinh());
         lbSoCMND.setText(kh.getSoCMND());
@@ -108,10 +120,40 @@ public class CheckOut implements Initializable {
         lbSoDT.setText(kh.getSoDT());
 
         Phong p = getPhong(maPhong);
+        tfMaPhong.setText(p.getMaPhong());
         lbLoaiPhong.setText(p.getLoaiPhong());
         lbTienPhong.setText(formatVND(String.valueOf(p.getGia())));
 
-        lbTongTien.setText(formatVND(tongTien(p.getGia(), soNgay(ngayDen, ngayDi))));
+        lbTongTien.setText(formatVND(tongTien(p.getGia(), soNgay(ngayDen, ngayDi), tp.getTienCoc())));
+    }
+
+    // Lấy thuê phong theo ma
+    private ThuePhong getTPbyID(String maThue){
+        for (ThuePhong tp:getThuePhong()){
+            if(tp.getMaThue().compareTo(maThue) == 0){
+                return tp;
+            }
+        }
+        return new ThuePhong();
+    }
+
+
+    // lấy mã thuê chư thanh toan
+    private ArrayList<String> getMT(){
+        ArrayList<ThuePhong> listTP = getThuePhong();
+        ArrayList<String> listMT = new ArrayList<>();
+        for(ThuePhong tp:listTP){
+            listMT.add(tp.getMaThue());
+        }
+        return listMT;
+    }
+
+    private void showMT() {
+        listMT.clear();
+        for (String s : getMT()) {
+            listMT.add(s);
+        }
+        cbMaThue.setItems(listMT);
     }
 
     private String getDateNow() {
@@ -120,24 +162,6 @@ public class CheckOut implements Initializable {
         return sdf.format(date);
     }
 
-    private ObservableList<String> getMaThue() {
-        ObservableList<String> listMaThue = FXCollections.observableArrayList();
-        DBConnection dbc = new DBConnection();
-        Connection cn = dbc.getConnection();
-        String query = "SELECT maThue FROM ThuePhong WHERE thanhToan = 0";
-        Statement st;
-        ResultSet rs;
-        try {
-            st = cn.createStatement();
-            rs = st.executeQuery(query);
-            while (rs.next()) {
-                listMaThue.add(rs.getString("maThue"));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return listMaThue;
-    }
 
     private String getMHD() {
         DBConnection dbc = new DBConnection();
@@ -158,7 +182,7 @@ public class CheckOut implements Initializable {
     }
 
     private KhachHang getKH(String maKH){
-        String query = "SELECT * FROM KhachHang WHERE maKH = " + maKH;
+        String query = "SELECT * FROM KhachHang WHERE maKH = " + Integer.parseInt(maKH.substring(2));
         DBConnection dbc = new DBConnection();
         Connection cn = dbc.getConnection();
         try {
@@ -193,37 +217,21 @@ public class CheckOut implements Initializable {
     }
 
 
-
-    private String getMP(String ma) {
-        String query = "SELECT maPhong FROM ThuePhong WHERE maThue = " + ma;
-        return DAO(query, "maPhong");
-    }
-
-    private String getMKH(String ma) {
-        String query = "SELECT maKH FROM ThuePhong WHERE maThue = " + ma;
-        return DAO(query, "maKH");
-    }
-
-    private String ngayDen(String ma) {
-        String query = "SELECT ngayDen FROM ThuePhong WHERE maThue = " + ma;
-        return DAO(query, "ngayDen");
-    }
-
-    private String DAO(String query, String columnLabel) {
+    private ArrayList<ThuePhong> getThuePhong() {
         DBConnection dbc = new DBConnection();
         Connection cn = dbc.getConnection();
-        Statement st;
-        ResultSet rs;
+        ArrayList<ThuePhong> listTP = new ArrayList<>();
+        String query = "SELECT * FROM ThuePhong WHERE thanhToan = 0";
         try {
-            st = cn.createStatement();
-            rs = st.executeQuery(query);
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(query);
             while (rs.next()) {
-                return rs.getString(columnLabel);
+                listTP.add(new ThuePhong(rs.getString("maThue"), rs.getInt("maKH"), rs.getString("maPhong"), rs.getDate("ngayDen"), rs.getDate("ngayDi"), rs.getString("thanhToan"), rs.getInt("tienCoc")));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "";
+        return listTP;
     }
 
     private int soNgay(String ngayDen, String ngayDi) throws ParseException {
@@ -236,8 +244,8 @@ public class CheckOut implements Initializable {
         return (int) (diff / (1000 * 60 * 60 * 24));
     }
 
-    private String tongTien(int donGia, int soNgay) {
-        return String.valueOf(donGia * soNgay);
+    private String tongTien(int donGia, int soNgay, int tienCoc) {
+        return String.valueOf(donGia * soNgay - tienCoc);
     }
 
     private String formatVND(String tien) {
@@ -250,7 +258,7 @@ public class CheckOut implements Initializable {
     void handelBtThanhToan(ActionEvent event) throws ParseException {
         String maThue = cbMaThue.getSelectionModel().getSelectedItem();
         if (maThue != null) {
-            String query = "INSERT INTO HotelManager.dbo.HoaDon VALUES (" + maThue + "," + tongTien(getPhong(tfMaPhong.getText()).getGia(), soNgay(ngayDen(maThue), getDateNow())) + ", GETDATE())";
+            String query = "INSERT INTO HotelManager.dbo.HoaDon VALUES (" + maThue + "," + tongTien(getPhong(tfMaPhong.getText()).getGia(), soNgay(String.valueOf(getTPbyID(maThue).getNgayDen()), getDateNow()),getTPbyID(maThue).getTienCoc()) + ", GETDATE())";
             ObservableList<String> listMTHD = getMTHoaDon();
             DBConnection dbc = new DBConnection();
             Connection cn = dbc.getConnection();

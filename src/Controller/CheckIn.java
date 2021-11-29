@@ -94,7 +94,7 @@ public class CheckIn implements Initializable {
         tvThuePhong.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         tvPhong.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         dpNgayDen.setValue(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(new Date())));
-        tfTienCoc.setText("0");
+//        tfTienCoc.setText("0");
         tfTienCoc.setFocusTraversable(false);
         setCellValueThuePhong();
         setCellValueRoom();
@@ -366,7 +366,7 @@ public class CheckIn implements Initializable {
         DBConnection dbc = new DBConnection();
         ArrayList<ThuePhong> listTP = new ArrayList<>();
         Connection cn = dbc.getConnection();
-        String query = "Select * FROM ThuePhong";
+        String query = "SELECT * FROM ThuePhong ORDER BY maThue DESC";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(query);

@@ -27,7 +27,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="424.0" layoutY="6.0" text="Danh Sách Phòng">
+      <Label layoutX="424.0" layoutY="10.0" text="Danh Sách Phòng">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
