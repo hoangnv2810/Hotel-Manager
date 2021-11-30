@@ -65,7 +65,6 @@ public class Account {
     void mouseClickedIcon(MouseEvent event) {
         iconCancel.setVisible(true);
         iconSave.setVisible(true);
-        tfUsername.setVisible(true);
         tfHoTen.setVisible(true);
         tfNgaySinh.setVisible(true);
         tfGioiTinh.setVisible(true);
@@ -87,7 +86,6 @@ public class Account {
     void mouseClickedIconCancel(MouseEvent event) {
         iconCancel.setVisible(false);
         iconSave.setVisible(false);
-        tfUsername.setVisible(false);
         tfHoTen.setVisible(false);
         tfNgaySinh.setVisible(false);
         tfGioiTinh.setVisible(false);
@@ -119,11 +117,10 @@ public class Account {
         DBConnection db = new DBConnection();
         Connection cn = db.getConnection();
         String query = "SELECT * FROM [User] WHERE username = '" + username + "'";
-        Statement st;
-        ResultSet rs;
+        System.out.println(username);
         try {
-            st = cn.createStatement();
-            rs = st.executeQuery(query);
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(query);
             while (rs.next()) {
                 labelUsername.setText(rs.getString("username"));
                 labelName.setText(rs.getString("tenNV"));

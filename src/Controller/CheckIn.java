@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
@@ -78,6 +79,9 @@ public class CheckIn implements Initializable {
 
     @FXML
     private TextField tfTienCoc;
+
+    @FXML
+    private TextField seachText;
 
     private String maThue;
     private String maPhong;
@@ -488,6 +492,55 @@ public class CheckIn implements Initializable {
             st.executeUpdate(query);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public ArrayList<ThuePhong> seach(int s) throws Exception {
+        DBConnection dbc = new DBConnection();
+        String sql = "";
+        sql = sql + "select * from dbo.ThuePhong as tp where tp.maThue like " + s +
+                 "select * from dbo.ThuePhong as tp where tp.maKH like " + s ;
+
+        ArrayList<ThuePhong> tp = new ArrayList<>();
+        try (Connection cnn = dbc.getConnection(); PreparedStatement pstm = cnn.prepareStatement(sql);) {
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                tp.add(new ThuePhong(rs.getString("maThue"), rs.getInt("maKH"), rs.getString("maPhong"), rs.getDate("ngayDen"), rs.getDate("ngayDi"), rs.getString("thanhToan"), rs.getInt("tienCoc")));
+            }
+        }
+        return tp;
+    }
+
+
+
+    // Thao tác với thanh tìm kiếm
+    public void keyReased() {
+        seachText.setOnKeyReleased(e -> {
+            showInSearchBar();
+        });
+    }
+
+    //Hirnt thị thanh tìm kiếm
+    public void showInSearchBar() {
+        listThuePhong.clear();
+        if (seachText.getText().compareTo("") == 0) {
+            showThuePhong();
+        } else {
+            listThuePhong.clear();
+            try {
+                listThuePhong = FXCollections.observableArrayList();
+                try {
+                    ArrayList<ThuePhong> tp1 = seach(Integer.parseInt(seachText.getText()));
+                    for (ThuePhong i : tp1) {
+                        listThuePhong.add(i);
+                    }
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+                tvThuePhong.setItems(listThuePhong);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 }

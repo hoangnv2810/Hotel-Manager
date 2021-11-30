@@ -142,7 +142,7 @@ public class CheckOut implements Initializable {
     }
 
 
-    // lấy mã thuê chư thanh toan
+    // lấy mã thuê chưa thanh toan
     private ArrayList<String> getMT(){
         ArrayList<ThuePhong> listTP = getThuePhong();
         ArrayList<String> listMT = new ArrayList<>();
@@ -265,7 +265,8 @@ public class CheckOut implements Initializable {
     @FXML
     void handelBtThanhToan(ActionEvent event) throws ParseException {
         String maThue = cbMaThue.getSelectionModel().getSelectedItem();
-        if (maThue != null) {
+        ArrayList<String> listMT = getMT();
+        if (maThue != null && listMT.contains(maThue)) {
             String query = "INSERT INTO HotelManager.dbo.HoaDon VALUES (" + maThue + "," + tongTien(getPhong(tfMaPhong.getText()).getGia(), soNgay(String.valueOf(getTPbyID(maThue).getNgayDen()), getDateNow())) + ", GETDATE())";
             ObservableList<String> listMTHD = getMTHoaDon();
             DBConnection dbc = new DBConnection();
@@ -302,7 +303,7 @@ public class CheckOut implements Initializable {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setHeaderText(null);
             alert.setTitle("Cảnh báo");
-            alert.setContentText("Vui lòng chọn mã thuê");
+            alert.setContentText("Mã thuê đã thanh toán hoặc trống");
             alert.show();
         }
 

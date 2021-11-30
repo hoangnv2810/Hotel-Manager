@@ -12,32 +12,32 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="502.0" prefWidth="694.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CheckIn">
+<AnchorPane onKeyReleased="#keyReased" prefHeight="508.0" prefWidth="691.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CheckIn">
    <children>
-      <Label layoutX="14.0" layoutY="39.0" text="Mã KH">
+      <Label layoutX="14.0" layoutY="47.0" text="Mã KH">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="80.0" text="Mã Phòng">
+      <Label layoutX="14.0" layoutY="88.0" text="Mã Phòng">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="120.0" text="Ngày đến">
+      <Label layoutX="14.0" layoutY="128.0" text="Ngày đến">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="424.0" layoutY="10.0" text="Danh Sách Phòng">
+      <Label layoutX="424.0" layoutY="14.0" text="Danh Sách Phòng">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <ComboBox fx:id="comBoxMKH" editable="true" focusTraversable="false" layoutX="100.0" layoutY="37.0" prefHeight="25.0" prefWidth="170.0" visibleRowCount="5" />
-      <ComboBox fx:id="comBoxMP" editable="true" focusTraversable="false" layoutX="100.0" layoutY="78.0" prefHeight="25.0" prefWidth="170.0" visibleRowCount="5" />
-      <DatePicker fx:id="dpNgayDen" focusTraversable="false" layoutX="100.0" layoutY="118.0" prefHeight="25.0" prefWidth="170.0" />
-      <TableView fx:id="tvPhong" focusTraversable="false" layoutX="298.0" layoutY="37.0" prefHeight="246.0" prefWidth="384.0">
+      <ComboBox fx:id="comBoxMKH" editable="true" focusTraversable="false" layoutX="100.0" layoutY="45.0" prefHeight="25.0" prefWidth="170.0" visibleRowCount="5" />
+      <ComboBox fx:id="comBoxMP" editable="true" focusTraversable="false" layoutX="100.0" layoutY="86.0" prefHeight="25.0" prefWidth="170.0" visibleRowCount="5" />
+      <DatePicker fx:id="dpNgayDen" focusTraversable="false" layoutX="100.0" layoutY="126.0" prefHeight="25.0" prefWidth="170.0" />
+      <TableView fx:id="tvPhong" focusTraversable="false" layoutX="298.0" layoutY="45.0" prefHeight="246.0" prefWidth="384.0">
          <columns>
             <TableColumn fx:id="tcMaPhong" prefWidth="94.0" style="-fx-alignment: CENTER;" text="Mã Phòng" />
             <TableColumn fx:id="tcLoaiPhong" prefWidth="103.0" style="-fx-alignment: CENTER;" text="Loại Phòng" />
@@ -45,7 +45,7 @@
             <TableColumn fx:id="tcGia" prefWidth="84.0" style="-fx-alignment: CENTER;" text="Giá" />
          </columns>
       </TableView>
-      <Button fx:id="btDatPhong" focusTraversable="false" layoutX="14.0" layoutY="198.0" mnemonicParsing="false" onAction="#handleInsertDP" prefHeight="38.0" prefWidth="125.0" text="Đặt Phòng">
+      <Button fx:id="btDatPhong" focusTraversable="false" layoutX="14.0" layoutY="206.0" mnemonicParsing="false" onAction="#handleInsertDP" prefHeight="38.0" prefWidth="125.0" text="Đặt Phòng">
          <graphic>
             <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -53,7 +53,7 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Button fx:id="btDKKH" focusTraversable="false" layoutX="530.0" layoutY="469.0" mnemonicParsing="false" onAction="#gotoInforCustomer" prefHeight="30.0" prefWidth="153.0" text="Đăng ký khách hàng">
+      <Button fx:id="btDKKH" focusTraversable="false" layoutX="529.0" layoutY="303.0" mnemonicParsing="false" onAction="#gotoInforCustomer" prefHeight="30.0" prefWidth="153.0" text="Đăng ký khách hàng">
          <graphic>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -61,7 +61,7 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <TableView fx:id="tvThuePhong" focusTraversable="false" layoutX="14.0" layoutY="296.0" onMouseClicked="#handleMouseAction" prefHeight="160.0" prefWidth="669.0">
+      <TableView fx:id="tvThuePhong" focusTraversable="false" layoutX="13.0" layoutY="342.0" onMouseClicked="#handleMouseAction" prefHeight="158.0" prefWidth="669.0">
         <columns>
           <TableColumn fx:id="tcMT" prefWidth="101.0" style="-fx-alignment: CENTER;" text="Mã Thuê" />
           <TableColumn fx:id="tcMKH" prefWidth="136.0" style="-fx-alignment: CENTER;" text="Mã Khách Hàng" />
@@ -71,7 +71,7 @@
             <TableColumn fx:id="tcThanhToan" minWidth="0.0" prefWidth="100.0" style="-fx-alignment: CENTER;" text="Thanh Toán" />
         </columns>
       </TableView>
-      <Button fx:id="btHuyPhong" focusTraversable="false" layoutX="14.0" layoutY="244.0" mnemonicParsing="false" onAction="#handleHuyPhong" prefHeight="38.0" prefWidth="125.0" text="Hủy Phòng">
+      <Button fx:id="btHuyPhong" focusTraversable="false" layoutX="14.0" layoutY="252.0" mnemonicParsing="false" onAction="#handleHuyPhong" prefHeight="38.0" prefWidth="125.0" text="Hủy Phòng">
          <graphic>
             <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -79,7 +79,7 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Button fx:id="btSua" focusTraversable="false" layoutX="145.0" layoutY="198.0" mnemonicParsing="false" onAction="#handleButtonSua" prefHeight="38.0" prefWidth="125.0" text="Cập Nhật">
+      <Button fx:id="btSua" focusTraversable="false" layoutX="145.0" layoutY="206.0" mnemonicParsing="false" onAction="#handleButtonSua" prefHeight="38.0" prefWidth="125.0" text="Cập Nhật">
          <graphic>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -87,7 +87,7 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Button fx:id="btLamMoi" focusTraversable="false" layoutX="145.0" layoutY="244.0" mnemonicParsing="false" onAction="#handleButtonLamMoi" prefHeight="38.0" prefWidth="125.0" text="Làm Mới">
+      <Button fx:id="btLamMoi" focusTraversable="false" layoutX="145.0" layoutY="252.0" mnemonicParsing="false" onAction="#handleButtonLamMoi" prefHeight="38.0" prefWidth="125.0" text="Làm Mới">
          <graphic>
             <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -95,11 +95,17 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <TextField fx:id="tfTienCoc" focusTraversable="false" layoutX="100.0" layoutY="158.0" prefHeight="25.0" prefWidth="170.0" />
-      <Label layoutX="14.0" layoutY="161.0" prefWidth="60.0" text="Tiền cọc ">
+      <TextField fx:id="tfTienCoc" focusTraversable="false" layoutX="100.0" layoutY="166.0" prefHeight="25.0" prefWidth="170.0" />
+      <Label layoutX="14.0" layoutY="169.0" prefWidth="60.0" text="Tiền cọc ">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
+      <Label layoutX="16.0" layoutY="308.0" text="Tìm kiếm">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="seachText" focusTraversable="false" layoutX="84.0" layoutY="306.0" prefHeight="25.0" prefWidth="187.0" />
    </children>
 </AnchorPane>
