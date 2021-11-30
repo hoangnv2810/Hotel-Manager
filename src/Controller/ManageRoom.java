@@ -200,7 +200,7 @@ public class ManageRoom implements Initializable {
         phongList.remove(selected);
         try {
             deleteDB(selected);
-            addAll();
+            showInSearchBar();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -241,7 +241,7 @@ public class ManageRoom implements Initializable {
             p.setGia(Integer.parseInt(priceText.getText()));
             try {
                 updateDB(p);
-                addAll();
+                showInSearchBar();
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

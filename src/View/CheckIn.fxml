@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="502.0" prefWidth="694.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CheckIn">
+<AnchorPane prefHeight="540.0" prefWidth="694.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CheckIn">
    <children>
       <Label layoutX="14.0" layoutY="39.0" text="Mã KH">
          <font>
@@ -53,7 +53,7 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Button fx:id="btDKKH" focusTraversable="false" layoutX="530.0" layoutY="469.0" mnemonicParsing="false" onAction="#gotoInforCustomer" prefHeight="30.0" prefWidth="153.0" text="Đăng ký khách hàng">
+      <Button fx:id="btDKKH" focusTraversable="false" layoutX="529.0" layoutY="295.0" mnemonicParsing="false" onAction="#gotoInforCustomer" prefHeight="30.0" prefWidth="153.0" text="Đăng ký khách hàng">
          <graphic>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -61,7 +61,7 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <TableView fx:id="tvThuePhong" focusTraversable="false" layoutX="14.0" layoutY="296.0" onMouseClicked="#handleMouseAction" prefHeight="160.0" prefWidth="669.0">
+      <TableView fx:id="tvThuePhong" focusTraversable="false" layoutX="13.0" layoutY="334.0" onMouseClicked="#handleMouseAction" prefHeight="191.0" prefWidth="669.0">
         <columns>
           <TableColumn fx:id="tcMT" prefWidth="101.0" style="-fx-alignment: CENTER;" text="Mã Thuê" />
           <TableColumn fx:id="tcMKH" prefWidth="136.0" style="-fx-alignment: CENTER;" text="Mã Khách Hàng" />
@@ -101,5 +101,11 @@
             <Font size="14.0" />
          </font>
       </Label>
+      <Label layoutX="16.0" layoutY="300.0" text="Tìm kiếm">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField layoutX="84.0" layoutY="298.0" prefHeight="25.0" prefWidth="187.0" />
    </children>
 </AnchorPane>
