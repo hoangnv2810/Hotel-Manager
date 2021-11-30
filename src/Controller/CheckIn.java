@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
@@ -93,7 +94,7 @@ public class CheckIn implements Initializable {
         listMPTrong = FXCollections.observableArrayList();
         tvThuePhong.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         tvPhong.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        dpNgayDen.setValue(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(new Date())));
+//        dpNgayDen.setValue(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(new Date())));
 //        tfTienCoc.setText("0");
         tfTienCoc.setFocusTraversable(false);
         setCellValueThuePhong();
@@ -117,7 +118,7 @@ public class CheckIn implements Initializable {
         Stage newWindow = new Stage();
         newWindow.setTitle("Thông tin tài khoản");
         newWindow.setScene(secondScene);
-
+        newWindow.getIcons().add(new Image("Images/icons8-user-48.png"));
         newWindow.initModality(Modality.WINDOW_MODAL);
         newWindow.initOwner(stage);
 
@@ -132,7 +133,7 @@ public class CheckIn implements Initializable {
         handleButtonLamMoi(event);
     }
 
-    private void datPhong(ActionEvent event){
+    private void datPhong(ActionEvent event) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
         if (listMPTrong.contains(comBoxMP.getValue())) {
@@ -163,7 +164,7 @@ public class CheckIn implements Initializable {
                     alert.show();
                 }
             } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
+                Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Lỗi");
                 alert.setHeaderText(null);
                 alert.setContentText("Khách hàng đã thanh toán");
@@ -172,7 +173,7 @@ public class CheckIn implements Initializable {
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
-            alert.setContentText("Phòng đã được thuê");
+            alert.setContentText("Vui lòng thử lại");
             alert.show();
         }
     }
@@ -214,7 +215,7 @@ public class CheckIn implements Initializable {
         refesh(event);
     }
 
-    private void refesh(ActionEvent event){
+    private void refesh(ActionEvent event) {
         comBoxMP.setValue(null);
         comBoxMKH.setValue(null);
         dpNgayDen.setValue(null);
@@ -390,28 +391,36 @@ public class CheckIn implements Initializable {
 
 
     private void updateThuePhong() {
-        String cbmp = comBoxMP.getValue();
-        int cbmk = Integer.parseInt(comBoxMKH.getSelectionModel().getSelectedItem().substring(2));
-        if (cbmp.compareTo(maPhong) != 0) {
-            doiPhong(maPhong);
-            doiPhong(cbmp);
-        }
-        String query = "UPDATE ThuePhong SET maKH = " + cbmk + ", maPhong = '"
-                + cbmp + "', ngayDen = N'" + dpNgayDen.getValue().toString() + "' , tienCoc = " + tfTienCoc.getText() +
-                " WHERE maThue = " + maThue;
-        DBConnection dbc = new DBConnection();
-        Connection cn = dbc.getConnection();
         try {
-            Statement st = cn.createStatement();
-            st.executeUpdate(query);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Cập nhật thành công");
-            alert.setHeaderText("Thông báo");
-            alert.show();
+            String cbmp = comBoxMP.getValue();
+            int cbmk = Integer.parseInt(comBoxMKH.getSelectionModel().getSelectedItem().substring(2));
+            String query = "UPDATE ThuePhong SET maKH = " + cbmk + ", maPhong = '"
+                    + cbmp + "', ngayDen = N'" + dpNgayDen.getValue().toString() + "' , tienCoc = " + tfTienCoc.getText() +
+                    " WHERE maThue = " + maThue;
+            if (cbmp.compareTo(maPhong) != 0) {
+                doiPhong(maPhong);
+                doiPhong(cbmp);
+            }
+            DBConnection dbc = new DBConnection();
+            Connection cn = dbc.getConnection();
+            try {
+                Statement st = cn.createStatement();
+                st.executeUpdate(query);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Cập nhật thành công");
+                alert.setHeaderText("Thông báo");
+                alert.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            showThuePhong();
         } catch (Exception e) {
-            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Lỗi");
+            alert.setHeaderText(null);
+            alert.setContentText("Vui lòng chọn mã");
+            alert.show();
         }
-        showThuePhong();
     }
 
     // Cập nhật trạng thái phòng khỉ đổi phòng
@@ -454,7 +463,8 @@ public class CheckIn implements Initializable {
                 alert.show();
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setHeaderText("Lỗi");
+                alert.setHeaderText(null);
+                alert.setTitle("Lỗi");
                 alert.setContentText("Vui lòng chọn phòng cần hủy");
                 alert.show();
             }

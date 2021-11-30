@@ -7,6 +7,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -43,8 +45,22 @@
             <TableColumn fx:id="tcGia" prefWidth="84.0" style="-fx-alignment: CENTER;" text="Giá" />
          </columns>
       </TableView>
-      <Button fx:id="btDatPhong" focusTraversable="false" layoutX="14.0" layoutY="198.0" mnemonicParsing="false" onAction="#handleInsertDP" prefHeight="38.0" prefWidth="125.0" text="Đặt Phòng" />
-      <Button fx:id="btDKKH" focusTraversable="false" layoutX="558.0" layoutY="469.0" mnemonicParsing="false" onAction="#gotoInforCustomer" prefHeight="30.0" prefWidth="125.0" text="Đăng ký khách hàng" />
+      <Button fx:id="btDatPhong" focusTraversable="false" layoutX="14.0" layoutY="198.0" mnemonicParsing="false" onAction="#handleInsertDP" prefHeight="38.0" prefWidth="125.0" text="Đặt Phòng">
+         <graphic>
+            <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/icons8-plus-math-48.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Button fx:id="btDKKH" focusTraversable="false" layoutX="530.0" layoutY="469.0" mnemonicParsing="false" onAction="#gotoInforCustomer" prefHeight="30.0" prefWidth="153.0" text="Đăng ký khách hàng">
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/icons8-add-user-male-skin-type-7-48.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
       <TableView fx:id="tvThuePhong" focusTraversable="false" layoutX="14.0" layoutY="296.0" onMouseClicked="#handleMouseAction" prefHeight="160.0" prefWidth="669.0">
         <columns>
           <TableColumn fx:id="tcMT" prefWidth="101.0" style="-fx-alignment: CENTER;" text="Mã Thuê" />
@@ -55,9 +71,30 @@
             <TableColumn fx:id="tcThanhToan" minWidth="0.0" prefWidth="100.0" style="-fx-alignment: CENTER;" text="Thanh Toán" />
         </columns>
       </TableView>
-      <Button fx:id="btHuyPhong" focusTraversable="false" layoutX="14.0" layoutY="244.0" mnemonicParsing="false" onAction="#handleHuyPhong" prefHeight="38.0" prefWidth="125.0" text="Hủy Phòng" />
-      <Button fx:id="btSua" focusTraversable="false" layoutX="145.0" layoutY="198.0" mnemonicParsing="false" onAction="#handleButtonSua" prefHeight="38.0" prefWidth="125.0" text="Cập Nhật" />
-      <Button fx:id="btLamMoi" focusTraversable="false" layoutX="145.0" layoutY="244.0" mnemonicParsing="false" onAction="#handleButtonLamMoi" prefHeight="38.0" prefWidth="125.0" text="Làm Mới" />
+      <Button fx:id="btHuyPhong" focusTraversable="false" layoutX="14.0" layoutY="244.0" mnemonicParsing="false" onAction="#handleHuyPhong" prefHeight="38.0" prefWidth="125.0" text="Hủy Phòng">
+         <graphic>
+            <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/icons8-delete-48.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Button fx:id="btSua" focusTraversable="false" layoutX="145.0" layoutY="198.0" mnemonicParsing="false" onAction="#handleButtonSua" prefHeight="38.0" prefWidth="125.0" text="Cập Nhật">
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/icons8-check-mark-48.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Button fx:id="btLamMoi" focusTraversable="false" layoutX="145.0" layoutY="244.0" mnemonicParsing="false" onAction="#handleButtonLamMoi" prefHeight="38.0" prefWidth="125.0" text="Làm Mới">
+         <graphic>
+            <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/icons8-refresh-32.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
       <TextField fx:id="tfTienCoc" focusTraversable="false" layoutX="100.0" layoutY="158.0" prefHeight="25.0" prefWidth="170.0" />
       <Label layoutX="14.0" layoutY="161.0" prefWidth="60.0" text="Tiền cọc ">
          <font>

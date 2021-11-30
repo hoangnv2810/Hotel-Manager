@@ -6,10 +6,26 @@ public class User {
     private String maNV,tenNV;
     private Date ngaySinh;
     private String gioiTinh;
-    private String username,password,sdt,email,diaChi;
+    private String username,password,sdt,email,queQuan,soCMND;
     private int luong;
 
-    public User(String maNV, String tenNV, Date ngaySinh, String gioiTinh, String username, String password, String sdt, String email, String diaChi,int luong) {
+    public String getQueQuan() {
+        return queQuan;
+    }
+
+    public void setQueQuan(String queQuan) {
+        this.queQuan = queQuan;
+    }
+
+    public String getSoCMND() {
+        return soCMND;
+    }
+
+    public void setSoCMND(String soCMND) {
+        this.soCMND = soCMND;
+    }
+
+    public User(String maNV, String username, String password, String tenNV, Date ngaySinh, String gioiTinh, String sdt, String email, String soCMND, String queQuan, int luong) {
         this.maNV = maNV;
         this.tenNV = tenNV;
         this.ngaySinh = ngaySinh;
@@ -18,7 +34,8 @@ public class User {
         this.password = password;
         this.sdt = sdt;
         this.email = email;
-        this.diaChi = diaChi;
+        this.soCMND=soCMND;
+        this.queQuan=queQuan;
         this.luong=luong;
     }
 
@@ -56,9 +73,6 @@ public class User {
         return email;
     }
 
-    public String getDiaChi() {
-        return diaChi;
-    }
 
     public void setMaNV(String maNV) {
         this.maNV = maNV;
@@ -96,7 +110,4 @@ public class User {
         this.email = email;
     }
 
-    public void setDiaChi(String diaChi) {
-        this.diaChi = diaChi;
-    }
 }

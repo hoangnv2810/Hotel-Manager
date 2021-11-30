@@ -4,6 +4,8 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -99,14 +101,14 @@
             <Font name="System Italic" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="60.0" layoutY="309.0" text="Số ngày :">
+      <Label layoutX="60.0" layoutY="339.0" text="Số ngày :">
          <font>
             <Font name="System Italic" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="345.0" layoutY="339.0" text="Tổng tiền :">
+      <Label layoutX="345.0" layoutY="309.0" text="Tổng tiền :">
          <font>
-            <Font name="System Bold Italic" size="16.0" />
+            <Font name="System Italic" size="14.0" />
          </font>
       </Label>
       <Label layoutX="345.0" layoutY="249.0" text="Loại phòng :">
@@ -146,51 +148,68 @@
       </Label>
       <TextField fx:id="tfMaHoaDon" disable="true" layoutX="129.0" layoutY="44.0" prefHeight="25.0" prefWidth="103.0" />
       <TextField fx:id="tfMaPhong" disable="true" layoutX="129.0" layoutY="124.0" prefHeight="25.0" prefWidth="103.0" />
-      <Button fx:id="buttonThanhToan" layoutX="599.0" layoutY="327.0" mnemonicParsing="false" onAction="#handelBtThanhToan" text="Thanh Toán">
+      <Button fx:id="buttonThanhToan" focusTraversable="false" layoutX="583.0" layoutY="335.0" mnemonicParsing="false" onAction="#handelBtThanhToan" text="Thanh Toán">
          <font>
             <Font size="14.0" />
          </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/icons8-cash-in-hand-48.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </Button>
       <TextField fx:id="tfMaKhachHang" disable="true" layoutX="129.0" layoutY="84.0" prefHeight="25.0" prefWidth="103.0" />
-      <Label fx:id="lbNgayDen" layoutX="142.0" layoutY="249.0">
+      <Label fx:id="lbNgayDen" layoutX="142.0" layoutY="249.0" text="55">
          <font>
             <Font name="System Italic" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="lbNgayDi" layoutX="142.0" layoutY="279.0">
+      <Label fx:id="lbNgayDi" layoutX="142.0" layoutY="279.0" text="55">
          <font>
             <Font name="System Italic" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="lbSoNgay" layoutX="142.0" layoutY="309.0">
+      <Label fx:id="lbSoNgay" layoutX="142.0" layoutY="339.0">
          <font>
             <Font name="System Italic" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="lbLoaiPhong" layoutX="437.0" layoutY="249.0">
+      <Label fx:id="lbLoaiPhong" layoutX="439.0" layoutY="249.0">
          <font>
             <Font name="System Italic" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="lbTongTien" layoutX="439.0" layoutY="339.0">
+      <Label fx:id="lbTongTien" layoutX="439.0" layoutY="309.0">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="cbMaThue" editable="true" focusTraversable="false" layoutX="129.0" layoutY="164.0" onAction="#handleActionCb" prefHeight="25.0" prefWidth="103.0" />
+      <Label fx:id="lbTienPhong" layoutX="439.0" layoutY="279.0">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="60.0" layoutY="309.0" text="Tiền cọc :">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbTienCoc" layoutX="134.0" layoutY="309.0" text="5000">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="346.0" layoutY="337.0" text="Còn nợ :">
          <font>
             <Font name="System Bold Italic" size="16.0" />
          </font>
       </Label>
-      <ComboBox fx:id="cbMaThue" editable="true" focusTraversable="false" layoutX="129.0" layoutY="164.0" onAction="#handleActionCb" prefHeight="25.0" prefWidth="103.0" />
-      <Label fx:id="lbTienPhong" layoutX="437.0" layoutY="279.0">
+      <Label fx:id="lbConNo" layoutX="420.0" layoutY="337.0">
          <font>
-            <Font name="System Italic" size="14.0" />
-         </font>
-      </Label>
-      <Label layoutX="345.0" layoutY="309.0" text="Tiền cọc :">
-         <font>
-            <Font name="System Italic" size="14.0" />
-         </font>
-      </Label>
-      <Label fx:id="lbTienCoc" layoutX="435.0" layoutY="309.0">
-         <font>
-            <Font name="System Italic" size="14.0" />
+            <Font name="System Bold Italic" size="16.0" />
          </font>
       </Label>
    </children>

@@ -13,10 +13,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -103,25 +100,129 @@ public class ManageEmployee implements Initializable {
     private TextField tfmaNV;
 
     @FXML
+    private TextField tfIdCard;
+
+    @FXML
     private TableView<User> tvEmployeeTable;
+
+
+    @FXML
+    private TableColumn<User, String> idCardColumn;
 
     @FXML
     private TableColumn<User, String> usernameColumn;
 
     @FXML
     private ToggleGroup gender;
+    @FXML
+    private Label error_address;
+
+    @FXML
+    private Label error_dob;
+
+    @FXML
+    private Label error_email;
+
+    @FXML
+    private Label error_gender;
+
+    @FXML
+    private Label error_id;
+
+    @FXML
+    private Label error_idCard;
+
+    @FXML
+    private Label error_name;
+
+    @FXML
+    private Label error_password;
+
+    @FXML
+    private Label error_phoneN;
+
+    @FXML
+    private Label error_salary;
+
+    @FXML
+    private Label error_username;
 
     @FXML
     void handleButtonAction(ActionEvent event) throws ParseException {
         if (event.getSource() == btnThem) {
-            insertUser();
+            if(checkErrorText()){
+                try{
+                    insertUser();
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setContentText("Thêm thành công.");
+                    alert.show();
+                }catch (Exception ex){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setContentText("Nhân viên đã tồn tại");
+                    alert.show();
+                }
+            }
         } else if (event.getSource() == btnSua) {
-            updateUser();
+            if(checkErrorText()){
+                try{
+                    updateUser();
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setContentText("Sửa thành công.");
+                    alert.show();
+                }catch (Exception ex){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setContentText("Nhân viên đã tồn tại");
+                    alert.show();
+                }
+            }
         } else if (event.getSource() == btnXoa) {
             deleteUser();
+
         } else if (event.getSource() == btnReset) {
+
             lamMoi();
+            resetLabel();
         }
+    }
+    private void resetLabel(){
+        error_name.setText(null);
+        error_dob.setText(null);
+        error_gender.setText(null);
+        error_id.setText(null);
+        error_salary.setText(null);
+        error_username.setText(null);
+        error_password.setText(null);
+        error_email.setText(null);
+        error_address.setText(null);
+        error_phoneN.setText(null);
+        error_idCard.setText(null);
+    }
+    public boolean checkErrorText(){
+        boolean isIDEmpty=validation.Validation.isTextFieldNotEmpty(tfmaNV,error_id,"vui lòng nhập ID");
+        boolean isNameEmpty=validation.Validation.isTextFieldNotEmpty(tfTenNV,error_name,"Vui lòng nhập tên.");
+        boolean isDateEmpty=validation.Validation.isDatePickerNotEmpty(dpNgaySinh,error_dob,"Vui lòng chọn ngày.");
+        boolean isGenderEmpty=validation.Validation.isGenderNotEmpty(rbNam,rbNu,error_gender,"vui lòng chọn giới tính");
+        boolean isUsernameEmpty=validation.Validation.isTextFieldNotEmpty(tfUsername,error_username,"Vui lòng nhập username.");
+        boolean isPasswordEmpty=validation.Validation.isTextFieldNotEmpty(tfPassword,error_password,"Vui lòng nhập password.");
+        boolean isSalaryEmpty=validation.Validation.isTextFieldNotEmpty(tfLuong,error_salary,"Vui lòng nhập lương.");
+        boolean isPhoneNumberEmpty=validation.Validation.isTextFieldNotEmpty(tfPNumber,error_phoneN,"Vui lòng nhập số điện thoại.");
+        boolean isEmailEmpty=validation.Validation.isTextFieldNotEmpty(tfEmail,error_email,"Vui lòng nhập email.");
+        boolean isAddressEmpty=validation.Validation.isTextFieldNotEmpty(tfAddress,error_address,"Vui lòng nhập quê quán.");
+        boolean isIdCardEmpty=validation.Validation.isTextFieldNotEmpty(tfAddress,error_address,"Vui lòng nhập số CMND.");
+        boolean isSalaryIsNumber=false;
+        boolean isPNIsNumber=false;
+        if(isSalaryEmpty){
+            isSalaryIsNumber=validation.Validation.isNumber(tfLuong,error_salary,"Lương phải là 1 số.");
+        }
+        if(isPhoneNumberEmpty){
+            isPNIsNumber=validation.Validation.isNumber(tfPNumber,error_phoneN,"Số đt phải là 1 số.");
+        }
+        if(isAddressEmpty && isEmailEmpty && isNameEmpty && isUsernameEmpty && isPasswordEmpty && isSalaryEmpty  && isPhoneNumberEmpty
+                && isDateEmpty && isGenderEmpty && isSalaryIsNumber && isPNIsNumber && isIDEmpty && isIdCardEmpty){
+
+            return true;
+        }
+        return false;
     }
 
     private ObservableList<User> userList;
@@ -138,7 +239,11 @@ public class ManageEmployee implements Initializable {
             rs = st.executeQuery(query);
             User user;
             while (rs.next()) {
-                user = new User(rs.getString("id"), rs.getString("tenNV"), rs.getDate("ngaySinh"), rs.getString("gioiTinh"), rs.getString("username"), rs.getString("password"), rs.getString("soDT"), rs.getString("email"), rs.getString("diaChi"), rs.getInt("luong"));
+                user = new User(rs.getString("id"), rs.getString("username"), rs.getString("password")
+                        , rs.getString("tenNV"), rs.getDate("ngaySinh"), rs.getString("gioiTinh")
+                        , rs.getString("soDT"), rs.getString("email")
+                        , rs.getString("soCMND"), rs.getString("queQuan")
+                        , rs.getInt("luong"));
                 userList.add(user);
 
 
@@ -157,10 +262,11 @@ public class ManageEmployee implements Initializable {
         gioiTinhColumn.setCellValueFactory(new PropertyValueFactory<>("gioiTinh"));
         usernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
         passwordColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
-        addressColumn.setCellValueFactory(new PropertyValueFactory<>("diaChi"));
+        addressColumn.setCellValueFactory(new PropertyValueFactory<>("queQuan"));
         phoneNumColumn.setCellValueFactory(new PropertyValueFactory<>("sdt"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         luongColumn.setCellValueFactory(new PropertyValueFactory<>("luong"));
+        idCardColumn.setCellValueFactory(new PropertyValueFactory<>("soCMND"));
         tvEmployeeTable.setItems(list);
     }
 
@@ -174,36 +280,48 @@ public class ManageEmployee implements Initializable {
         String s = date.toString();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date d1 = sdf.parse(s);
-        String d2 = new SimpleDateFormat("yyyy-MM-dd").format(d1);
+        String d2 = new SimpleDateFormat("yyyyMMdd").format(d1);
 
         String gioitinh = "";
         if (rbNam.isSelected()) gioitinh = "Nam";
         else gioitinh = "Nữ";
-        String query = "INSERT INTO [User] VALUES (N'" + tfTenNV.getText() + "', N'" + d2 + "', N'" + gioitinh + "', N'" + tfUsername.getText() + "', N'"
-                + tfPassword.getText() + "', N'Nhân viên' , N'" + tfPNumber.getText() + "', N'" + tfEmail.getText() + "', N'" + tfAddress.getText() + "', " + tfLuong.getText() + ")";
-        System.out.println(query);
-        executeQuery(query);
+        String query = "INSERT INTO [User] VALUES ( N'"+ tfmaNV.getText() +"', N'" + tfUsername.getText() + "', N'"
+                + tfPassword.getText() + "' , N'" + tfTenNV.getText() + "', N'" + d2 + "', N'" + gioitinh
+                + "', N'"  + tfPNumber.getText() + "', N'" + tfEmail.getText() + "', N'" + tfIdCard.getText() + "', N'" + tfAddress.getText() + "', " + tfLuong.getText()+ ",'False'" + ")";
+
+        try{
+            executeQuery(query);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Thêm thành công.");
+            alert.show();
+        }catch (Exception ex){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Nhân viên đã tồn tại");
+            alert.show();
+        }
+//        executeQuery(query);
         showUser();
-        dpNgaySinh.setValue(null);
     }
 
     void lamMoi() {
-        tfmaNV.setText(null);
-        tfTenNV.setText(null);
+        tfmaNV.setText("");
+        tfTenNV.setText("");
         dpNgaySinh.setValue(null);
-        tfUsername.setText(null);
-        tfPassword.setText(null);
-
-        tfLuong.setText(null);
-        tfEmail.setText(null);
-        tfPNumber.setText(null);
-        tfAddress.setText(null);
+        tfUsername.setText("");
+        tfPassword.setText("");
+        rbNu.setSelected(false);
+        rbNam.setSelected(false);
+        tfLuong.setText("");
+        tfEmail.setText("");
+        tfPNumber.setText("");
+        tfAddress.setText("");
+        tfIdCard.setText("");
     }
 
     private void updateUser() throws ParseException {
         LocalDate date1 = dpNgaySinh.getValue();
         String s = date1.toString();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date d1 = sdf.parse(s);
         String d2 = new SimpleDateFormat("yyyyMMdd").format(d1);
 
@@ -211,19 +329,18 @@ public class ManageEmployee implements Initializable {
         if (rbNam.isSelected()) gioitinh = "Nam";
         else gioitinh = "Nữ";
 
-        String id = tfmaNV.getText().substring(2);
-        int ma = Integer.parseInt(id);
-        String query = "UPDATE [User] SET tenNV = N'" + tfTenNV.getText() + "', ngaySinh = N'" + d2 + "', gioiTinh = N'" + gioitinh + "', username = N'" + tfUsername.getText() + "', password = N'"
-                + tfPassword.getText() + "', soDT = N'" + tfPNumber.getText() + "', email = N'" + tfEmail.getText() + "', diaChi = N'" + tfAddress.getText() + "', luong=" + tfLuong.getText()
-                + " where id =" + ma + "";
+
+        String query = "UPDATE [User] SET  id = N'"+ tfmaNV.getText() + "', username = N'" + tfUsername.getText() + "', password = N'"
+                + tfPassword.getText() + "', tenNV = N'" + tfTenNV.getText() + "', ngaySinh = N'" + d2 + "', gioiTinh = N'" + gioitinh  +
+                "', soDT = N'" + tfPNumber.getText() + "', email = N'" + tfEmail.getText() + "', soCMND = N'" + tfIdCard.getText() + "', queQuan = N'" + tfAddress.getText() + "', luong=" + tfLuong.getText()
+                + " where id =N'" + tfmaNV.getText() + "'";
         executeQuery(query);
         showUser();
     }
 
     private void deleteUser() {
-        String id = tfmaNV.getText();
 
-        String query = "DELETE FROM [User] WHERE id ='" + Integer.parseInt(id) + "'";
+        String query = "DELETE FROM [User] WHERE id ='" + tfmaNV.getText() + "'";
         executeQuery(query);
         showUser();
     }
@@ -258,8 +375,9 @@ public class ManageEmployee implements Initializable {
             tfPassword.setText(user.getPassword());
             tfPNumber.setText(user.getSdt());
             tfEmail.setText(user.getEmail());
-            tfAddress.setText(user.getDiaChi());
+            tfAddress.setText(user.getQueQuan());
             tfLuong.setText("" + user.getLuong());
+            tfIdCard.setText(user.getSoCMND());
         }
     }
 
@@ -296,17 +414,20 @@ public class ManageEmployee implements Initializable {
     }
 
     public ArrayList<User> fillCustomer(String s) throws Exception {
-        String sql = "select * from dbo.User as nv where nv.tenNV like '" + s + "%'" +
-                "union select * from dbo.User as nv where nv.soDT like '" + s + "%'" +
-                "union select * from dbo.User as nv where nv.username like '" + s + "%'";
+        String sql = "select * from dbo.[User] as nv where nv.name like '" + s + "%'" +
+                "union select * from dbo.[User] as nv where nv.soCMND like '" + s + "%'" +
+                "union select * from dbo.[User] as nv where nv.username like '" + s + "%'";
         DBConnection dbc = new DBConnection();
         ArrayList<User> kh = new ArrayList<>();
         try (Connection cnn = dbc.getConnection();
              PreparedStatement pstm = cnn.prepareStatement(sql);) {
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
-                User user = new User(rs.getString("id"), rs.getString("tenNV"), rs.getDate("ngaySinh"), rs.getString("gioiTinh"), rs.getString("username"), rs.getString("password"), rs.getString("soDT"), rs.getString("email"), rs.getString("diaChi"), rs.getInt("luong"));
-
+                User user = new User(rs.getString("id"), rs.getString("username"), rs.getString("password")
+                        , rs.getString("tenNV"), rs.getDate("ngaySinh"), rs.getString("gioiTinh")
+                        , rs.getString("soDT"), rs.getString("email")
+                        , rs.getString("soCMND"), rs.getString("queQuan")
+                        , rs.getInt("luong"));
                 kh.add(user);
             }
         }
@@ -327,13 +448,17 @@ public class ManageEmployee implements Initializable {
     }
 
     public ArrayList<User> fillAll() throws Exception {
-        String sql = "select * from dbo.User";
+        String sql = "select * from dbo.[User]";
         DBConnection dbc = new DBConnection();
         ArrayList<User> kh = new ArrayList<>();
         try (Connection cnn = dbc.getConnection(); PreparedStatement pstm = cnn.prepareStatement(sql);) {
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
-                User user = new User(rs.getString("id"), rs.getString("tenNV"), rs.getDate("ngaySinh"), rs.getString("gioiTinh"), rs.getString("username"), rs.getString("password"), rs.getString("soDT"), rs.getString("email"), rs.getString("diaChi"), rs.getInt("luong"));
+                User user = new User(rs.getString("id"), rs.getString("username"), rs.getString("password")
+                        , rs.getString("tenNV"), rs.getDate("ngaySinh"), rs.getString("gioiTinh")
+                        , rs.getString("soDT"), rs.getString("email")
+                        , rs.getString("soCMND"), rs.getString("queQuan")
+                        , rs.getInt("luong"));
             }
         }
         return kh;

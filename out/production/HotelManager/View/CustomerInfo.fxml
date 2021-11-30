@@ -6,6 +6,8 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -63,7 +65,14 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button focusTraversable="false" layoutX="482.0" layoutY="228.0" mnemonicParsing="false" onAction="#handleButtonSave" prefHeight="40.0" prefWidth="120.0" text="Lưu" />
+      <Button focusTraversable="false" layoutX="482.0" layoutY="228.0" mnemonicParsing="false" onAction="#handleButtonSave" prefHeight="40.0" prefWidth="120.0" text="Lưu">
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/icons8-save-as-48.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
       <RadioButton fx:id="rbMale" focusTraversable="false" layoutX="411.0" layoutY="99.0" mnemonicParsing="false" onAction="#getGender" text="Nam">
          <font>
             <Font size="14.0" />
@@ -77,5 +86,40 @@
             <Font size="14.0" />
          </font>
       </RadioButton>
+      <Label fx:id="error_dob" layoutX="104.0" layoutY="121.0" textFill="#d95d1c">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="error_CMND" layoutX="104.0" layoutY="166.0" textFill="#d95d1c">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="error_que" layoutX="104.0" layoutY="211.0" textFill="#d95d1c">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="error_nameKH" layoutX="412.0" layoutY="76.0" textFill="#d95d1c">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="error_gender" layoutX="412.0" layoutY="121.0" textFill="#d95d1c">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="error_phoneN" layoutX="412.0" layoutY="166.0" textFill="#d95d1c">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="error_quocTich" layoutX="412.0" layoutY="211.0" textFill="#d95d1c">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

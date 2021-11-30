@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="539.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ManageEmployee">
+<AnchorPane prefHeight="575.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ManageEmployee">
    <children>
       <Label layoutX="408.0" layoutY="13.0" text="Quản lý nhân viên">
          <font>
@@ -80,7 +80,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TableView fx:id="tvEmployeeTable" layoutX="313.0" layoutY="89.0" onMouseClicked="#handleMouseAction" prefHeight="439.0" prefWidth="579.0">
+      <TableView fx:id="tvEmployeeTable" layoutX="313.0" layoutY="89.0" onMouseClicked="#handleMouseAction" prefHeight="478.0" prefWidth="579.0">
          <columns>
             <TableColumn fx:id="idColumn" prefWidth="49.0" text="Mã NV" />
             <TableColumn fx:id="nameColumn" prefWidth="123.0" text="Tên NV" />
@@ -90,8 +90,9 @@
             <TableColumn fx:id="passwordColumn" prefWidth="86.0" text="Password" />
             <TableColumn fx:id="phoneNumColumn" prefWidth="77.0" text="Số ĐT" />
             <TableColumn fx:id="emailColumn" prefWidth="77.0" text="Email" />
-            <TableColumn fx:id="addressColumn" prefWidth="77.0" text="Địa chỉ" />
+            <TableColumn fx:id="addressColumn" prefWidth="77.0" text="Quê quán" />
             <TableColumn fx:id="luongColumn" prefWidth="77.0" text="Lương" />
+            <TableColumn fx:id="idCardColumn" prefWidth="77.0" text="Số CMND" />
          </columns>
       </TableView>
       <TextField fx:id="tfSearch" layoutX="399.0" layoutY="49.0" onKeyReleased="#seachKeyReleased" prefHeight="25.0" prefWidth="466.0" />
@@ -100,11 +101,62 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button fx:id="btnThem" layoutX="19.0" layoutY="437.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="40.0" prefWidth="120.0" text="Thêm" />
-      <Button fx:id="btnSua" layoutX="155.0" layoutY="437.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="40.0" prefWidth="120.0" text="Sửa" />
-      <Button fx:id="btnXoa" layoutX="18.0" layoutY="488.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="40.0" prefWidth="120.0" text="Xóa" />
-      <Button fx:id="btnReset" layoutX="155.0" layoutY="488.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="40.0" prefWidth="120.0" text="Làm mới" />
+      <Button fx:id="btnThem" layoutX="19.0" layoutY="474.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="40.0" prefWidth="120.0" text="Thêm" />
+      <Button fx:id="btnSua" layoutX="155.0" layoutY="474.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="40.0" prefWidth="120.0" text="Sửa" />
+      <Button fx:id="btnXoa" layoutX="18.0" layoutY="525.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="40.0" prefWidth="120.0" text="Xóa" />
+      <Button fx:id="btnReset" layoutX="155.0" layoutY="525.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="40.0" prefWidth="120.0" text="Làm mới" />
       <TextField fx:id="tfPassword" layoutX="105.0" layoutY="240.0" prefHeight="25.0" prefWidth="170.0" />
       <TextField fx:id="tfLuong" layoutX="105.0" layoutY="280.0" prefHeight="25.0" prefWidth="170.0" />
+      <Label fx:id="error_id" layoutX="105.0" layoutY="64.0" textFill="#d95d1c">
+         <font>
+            <Font size="11.0" />
+         </font></Label>
+      <Label fx:id="error_name" layoutX="105.0" layoutY="104.0" textFill="#d95d1c">
+         <font>
+            <Font size="11.0" />
+         </font></Label>
+      <Label fx:id="error_dob" layoutX="105.0" layoutY="147.0" textFill="#d95d1c">
+         <font>
+            <Font size="11.0" />
+         </font></Label>
+      <Label fx:id="error_gender" layoutX="105.0" layoutY="179.0" textFill="#d95d1c">
+         <font>
+            <Font size="11.0" />
+         </font></Label>
+      <Label fx:id="error_username" layoutX="105.0" layoutY="224.0" textFill="#d95d1c">
+         <font>
+            <Font size="11.0" />
+         </font></Label>
+      <Label fx:id="error_password" layoutX="105.0" layoutY="261.0" textFill="#d95d1c">
+         <font>
+            <Font size="11.0" />
+         </font></Label>
+      <Label fx:id="error_phoneN" layoutX="105.0" layoutY="344.0" textFill="#d95d1c">
+         <font>
+            <Font size="11.0" />
+         </font></Label>
+      <Label fx:id="error_email" layoutX="105.0" layoutY="384.0" textFill="#d95d1c">
+         <font>
+            <Font size="11.0" />
+         </font></Label>
+      <Label fx:id="error_address" layoutX="105.0" layoutY="422.0" textFill="#d95d1c">
+         <font>
+            <Font size="11.0" />
+         </font></Label>
+      <Label fx:id="error_salary" layoutX="106.0" layoutY="300.0" textFill="#d95d1c">
+         <font>
+            <Font size="11.0" />
+         </font></Label>
+      <Label layoutX="19.0" layoutY="438.0" prefHeight="20.0" prefWidth="70.0" text="Số CMND">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tfIdCard" layoutX="106.0" layoutY="436.0" prefHeight="25.0" prefWidth="170.0" />
+      <Label fx:id="error_idCard" layoutX="105.0" layoutY="461.0" textFill="#d95d1c">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

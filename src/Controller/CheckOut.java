@@ -83,6 +83,9 @@ public class CheckOut implements Initializable {
     @FXML
     private Label lbTongTien;
 
+    @FXML
+    private Label lbConNo;
+
     ObservableList<String> listMT;
 
     @Override
@@ -124,7 +127,8 @@ public class CheckOut implements Initializable {
         lbLoaiPhong.setText(p.getLoaiPhong());
         lbTienPhong.setText(formatVND(String.valueOf(p.getGia())));
 
-        lbTongTien.setText(formatVND(tongTien(p.getGia(), soNgay(ngayDen, ngayDi), tp.getTienCoc())));
+        lbTongTien.setText(formatVND(tongTien(p.getGia(), soNgay(ngayDen, ngayDi))));
+        lbConNo.setText(formatVND(conNo(Integer.parseInt(tongTien(p.getGia(), soNgay(ngayDen, ngayDi))), tp.getTienCoc())));
     }
 
     // Lấy thuê phong theo ma
@@ -244,8 +248,12 @@ public class CheckOut implements Initializable {
         return (int) (diff / (1000 * 60 * 60 * 24));
     }
 
-    private String tongTien(int donGia, int soNgay, int tienCoc) {
-        return String.valueOf(donGia * soNgay - tienCoc);
+    private String tongTien(int donGia, int soNgay) {
+        return String.valueOf(donGia * soNgay);
+    }
+
+    private String conNo(int tongTien, int tienCoc){
+        return String.valueOf(tongTien-tienCoc);
     }
 
     private String formatVND(String tien) {
@@ -258,7 +266,7 @@ public class CheckOut implements Initializable {
     void handelBtThanhToan(ActionEvent event) throws ParseException {
         String maThue = cbMaThue.getSelectionModel().getSelectedItem();
         if (maThue != null) {
-            String query = "INSERT INTO HotelManager.dbo.HoaDon VALUES (" + maThue + "," + tongTien(getPhong(tfMaPhong.getText()).getGia(), soNgay(String.valueOf(getTPbyID(maThue).getNgayDen()), getDateNow()),getTPbyID(maThue).getTienCoc()) + ", GETDATE())";
+            String query = "INSERT INTO HotelManager.dbo.HoaDon VALUES (" + maThue + "," + tongTien(getPhong(tfMaPhong.getText()).getGia(), soNgay(String.valueOf(getTPbyID(maThue).getNgayDen()), getDateNow())) + ", GETDATE())";
             ObservableList<String> listMTHD = getMTHoaDon();
             DBConnection dbc = new DBConnection();
             Connection cn = dbc.getConnection();

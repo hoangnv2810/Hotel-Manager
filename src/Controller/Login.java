@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,8 +27,6 @@ public class Login implements Initializable {
     private TextField usernameTextField;
     @FXML
     private PasswordField passwordTextField;
-    @FXML
-    private Button loginButton;
     @FXML
     private Label loginMessageLabel;
 
@@ -60,6 +59,7 @@ public class Login implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/MenuBarBorderPane.fxml"));
         Parent root = loader.load();
         Stage stage = new Stage();
+        stage.getIcons().add(new Image("Images/icons8-hotel-check-in-48.png"));
         stage.setTitle("Check In");
         stage.setScene(new Scene(root));
         stage.centerOnScreen();

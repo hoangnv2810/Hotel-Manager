@@ -33,6 +33,30 @@ import java.util.regex.Pattern;
 public class ManageCustomer implements Initializable {
 
     @FXML
+    private Label error_CMND;
+
+    @FXML
+    private Label error_dob;
+
+    @FXML
+    private Label error_gender;
+
+    @FXML
+    private Label error_idKH;
+
+    @FXML
+    private Label error_nameKH;
+
+    @FXML
+    private Label error_phoneN;
+
+    @FXML
+    private Label error_que;
+
+    @FXML
+    private Label error_quocTich;
+
+    @FXML
     private TextField idText;
 
     @FXML
@@ -102,7 +126,27 @@ public class ManageCustomer implements Initializable {
         customersList= FXCollections.observableArrayList();
         addAll();
     }
-
+    private boolean checkErrorText(){
+        boolean isDobNotEmpty=validation.Validation.isDatePickerNotEmpty(dboDatePicker,error_dob,"Vui lòng chọn ngày sinh.");
+        boolean isCMNDNotEmpty=validation.Validation.isTextFieldNotEmpty(idCardText,error_CMND,"Vui lòng nhập số CMND.");
+        boolean isHomeNotEmpty=validation.Validation.isTextFieldNotEmpty(nativePlaceText,error_que,"Vui lòng nhập quê quán.");
+        boolean isNameNotEmpty=validation.Validation.isTextFieldNotEmpty(nameText,error_nameKH,"Vui lòng nhập tên KH.");
+        boolean isGenderNotEmpty=validation.Validation.isGenderNotEmpty(maleRadioButton,femaleRadioButton,error_gender,"Vui lòng chọn giới tính.");
+        boolean isPhoneNNotEmpty=validation.Validation.isTextFieldNotEmpty(numberPhoneText,error_phoneN,"Vui lòng nhập số ĐT.");
+        boolean isNationalityNotEmpty=validation.Validation.isTextFieldNotEmpty(nationalityText,error_quocTich,"Vui lòng nhập quốc tịch.");
+        boolean phoneNIsNumber=false;
+        boolean CMNDisNumber=false;
+        if(isCMNDNotEmpty){
+            CMNDisNumber=validation.Validation.isNumber(idCardText,error_CMND,"CMND phải là 1 dãy các chữ số");
+        }
+        if(isPhoneNNotEmpty){
+            phoneNIsNumber=validation.Validation.isNumber(numberPhoneText,error_phoneN,"Số đt phải là 1 dãy các chữ số");
+        }
+        if(isDobNotEmpty && isCMNDNotEmpty && isHomeNotEmpty && isNameNotEmpty && isGenderNotEmpty && isPhoneNNotEmpty && isNationalityNotEmpty && phoneNIsNumber && CMNDisNumber){
+            return true;
+        }
+        return false;
+    }
     private void setCellTable(){
         idColumn.setCellValueFactory(new PropertyValueFactory<KhachHang,String>("maKH"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<KhachHang,String>("ten"));
@@ -172,76 +216,109 @@ public class ManageCustomer implements Initializable {
             String s1=sd.toString();
             int t=Integer.parseInt(s1);
             pstm.setInt(8,t);
-            return pstm.executeUpdate()>0;
+            boolean check=false;
+            try{
+                pstm.executeUpdate();
+                check=true;
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Update thành công");
+                alert.show();
+            }catch(Exception ex){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Số CMND hoặc sđt đã tồn tại.");
+                alert.show();
+            }
+            return check;
         }
     }
 
     //Thao Tác với nut sửa
     public void update(ActionEvent event) throws ParseException {
-        KhachHang kh=new KhachHang();
-        KhachHang kh1=kh;
-        kh.setMaKH(Integer.parseInt(idText.getText()));
-        kh.setTen(nameText.getText());
-        // Xử lý ngày tháng.
-        LocalDate d=dboDatePicker.getValue();
-        String s=d.toString();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date d1=sdf.parse(s);
-        kh.setNgaySinh(d1);
-        //Xử lý giới tính
-        if(maleRadioButton.isSelected()){
-            kh.setGioiTinh("Nam");
+        if(checkErrorText()){
+            KhachHang kh=new KhachHang();
+            KhachHang kh1=kh;
+            kh.setMaKH(Integer.parseInt(idText.getText().substring(2)));
+            kh.setTen(nameText.getText());
+            // Xử lý ngày tháng.
+            LocalDate d=dboDatePicker.getValue();
+            String s=d.toString();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date d1=sdf.parse(s);
+            kh.setNgaySinh(d1);
+            //Xử lý giới tính
+            if(maleRadioButton.isSelected()){
+                kh.setGioiTinh("Nam");
+            }
+            else {
+                kh.setGioiTinh("Nữ");
+            }
+            //Xử lý phần còn lại
+            kh.setSoCMND(idCardText.getText());
+            kh.setSoDT(numberPhoneText.getText());
+            kh.setQueQuan(nativePlaceText.getText());
+            kh.setQuocTich(nationalityText.getText());
+            try {
+                updateDB(kh);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            addAll();
         }
-        else {
-            kh.setGioiTinh("Nữ");
-        }
-        //Xử lý phần còn lại
-        kh.setSoCMND(idCardText.getText());
-        kh.setSoDT(numberPhoneText.getText());
-        kh.setQueQuan(nativePlaceText.getText());
-        kh.setQuocTich(nationalityText.getText());
-        try {
-            updateDB(kh);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText("Thông báo");
-            alert.setContentText("Update thành công");
-            alert.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        addAll();
     }
 
     // Thao tác khi nhấn chọn một đối tượng trong bảng.
     public void handleMouseAction(MouseEvent mouseEvent) {
-        if(mouseEvent.getClickCount()==2) {
+        if(mouseEvent.getClickCount()==1) {
             KhachHang kh = customerTable.getSelectionModel().getSelectedItem();
-            StringBuilder sd = new StringBuilder(kh.getMaKH());
             //Hiển thị mã-Tên
-            sd.deleteCharAt(0);
-            sd.deleteCharAt(0);
-            String s1 = sd.toString();
-            idText.setText(s1);
-            nameText.setText(kh.getTen());
-            //Hiển thị ngày sinh
-            String sns = new SimpleDateFormat("yyyy-MM-dd").format(kh.getNgaySinh());
-            LocalDate d = LocalDate.parse(sns, DateTimeFormatter.ISO_LOCAL_DATE);
-            dboDatePicker.setValue(d);
-            //Hiện thị giới tính
-            if (kh.getGioiTinh().equals("Nam")) {
-                maleRadioButton.fire();
-            } else {
-                femaleRadioButton.fire();
+            if(kh != null){
+                idText.setText(kh.getMaKH());
+                idText.setDisable(true);
+                nameText.setText(kh.getTen());
+                //Hiển thị ngày sinh
+                String sns = new SimpleDateFormat("yyyy-MM-dd").format(kh.getNgaySinh());
+                LocalDate d = LocalDate.parse(sns, DateTimeFormatter.ISO_LOCAL_DATE);
+                dboDatePicker.setValue(d);
+                //Hiện thị giới tính
+                if (kh.getGioiTinh().equals("Nam")) {
+                    maleRadioButton.fire();
+                } else {
+                    femaleRadioButton.fire();
+                }
+                //SoCMND-Sodt-Que Quan-QuocTich.
+                idCardText.setText(kh.getSoCMND());
+                numberPhoneText.setText(kh.getSoDT());
+                nativePlaceText.setText(kh.getQueQuan());
+                nationalityText.setText(kh.getQuocTich());
             }
-            //SoCMND-Sodt-Que Quan-QuocTich.
-            idCardText.setText(kh.getSoCMND());
-            numberPhoneText.setText(kh.getSoDT());
-            nativePlaceText.setText(kh.getQueQuan());
-            nationalityText.setText(kh.getQuocTich());
         }
     }
 
 
+    @FXML
+    void refresh(ActionEvent event) {
+        idText.setText("");
+        idText.setDisable(true);
+        nameText.setText("");
+        dboDatePicker.setValue(null);
+        maleRadioButton.setSelected(false);
+        femaleRadioButton.setSelected(false);
+        idCardText.setText("");
+        numberPhoneText.setText("");
+        nativePlaceText.setText("");
+        nationalityText.setText("");
+
+        error_CMND.setText(null);
+        error_dob.setText(null);
+        error_phoneN.setText(null);
+        error_gender.setText(null);
+        error_idKH.setText(null);
+        error_nameKH.setText(null);
+        error_que.setText(null);
+        error_quocTich.setText(null);
+
+    }
     //Xoa dữ liệu trong db.
     public void delete(ActionEvent event) {
         DBConnection db=new DBConnection();
@@ -288,51 +365,8 @@ public class ManageCustomer implements Initializable {
         }
     }
 
-//    public ArrayList<KhachHang> fillCustomer(String s) throws Exception {
-//        String sql = "select * from dbo.KhachHang as kh where kh.ten like '%"+s+"%'"+
-//                "union select * from dbo.KhachHang as kh where kh.soCMND like '%"+s+"%'"+
-//                "union select * from dbo.KhachHang as kh where kh.soDT like '%"+s+"%'";
-//        DBConnection dbc=new DBConnection();
-//        ArrayList<KhachHang> kh=new ArrayList<>();
-//        try (Connection cnn = dbc.getConnection(); PreparedStatement pstm = cnn.prepareStatement(sql);) {
-//            ResultSet rs=pstm.executeQuery();
-//            while(rs.next()){
-//                KhachHang kh1=new KhachHang();
-//                kh1.setMaKH(rs.getInt("maKH"));
-//                kh1.setTen(rs.getString("ten"));
-//                kh1.setNgaySinh(rs.getDate("ngaySinh"));
-//                kh1.setGioiTinh(rs.getString("gioiTinh"));
-//                kh1.setSoCMND(rs.getString("soCMND"));
-//                kh1.setSoDT(rs.getString("soDT"));
-//                kh1.setQueQuan(rs.getString("queQuan"));
-//                kh1.setQuocTich(rs.getString("quocTich"));
-//                kh.add(kh1);
-//            }
-//        }
-//        return kh;
-//    }
 
     public ArrayList<KhachHang> fillCustomer(String s) throws Exception {
-//        String sql = "select * from dbo.KhachHang as kh where kh.ten like '"+s+"%'"+
-//                "union select * from dbo.KhachHang as kh where kh.soCMND like '"+s+"%'"+
-//                "union select * from dbo.KhachHang as kh where kh.soDT like '"+s+"%'";
-//        DBConnection dbc=new DBConnection();
-//        ArrayList<KhachHang> kh=new ArrayList<>();
-//        try (Connection cnn = dbc.getConnection(); PreparedStatement pstm = cnn.prepareStatement(sql);) {
-//            ResultSet rs=pstm.executeQuery();
-//            while(rs.next()){
-//                KhachHang kh1=new KhachHang();
-//                kh1.setMaKH(rs.getInt("maKH"));
-//                kh1.setTen(rs.getString("ten"));
-//                kh1.setNgaySinh(rs.getDate("ngaySinh"));
-//                kh1.setGioiTinh(rs.getString("gioiTinh"));
-//                kh1.setSoCMND(rs.getString("soCMND"));
-//                kh1.setSoDT(rs.getString("soDT"));
-//                kh1.setQueQuan(rs.getString("queQuan"));
-//                kh1.setQuocTich(rs.getString("quocTich"));
-//                kh.add(kh1);
-//            }
-//        }
         s=s.toLowerCase();
         String s1=removeAccent(s);
         ArrayList<KhachHang> kh=new ArrayList<>();

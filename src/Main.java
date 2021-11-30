@@ -3,6 +3,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -18,6 +19,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("View/Login.fxml"));
         primaryStage.setTitle("Login Hotel");
+        primaryStage.getIcons().add(new Image("Images/login.png"));
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
